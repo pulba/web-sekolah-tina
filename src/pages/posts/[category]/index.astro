@@ -1,0 +1,64 @@
+---
+import Layout from "../../../layouts/Layout.astro"
+import CardPosts from "../../../components/CardPosts.astro"
+import Pagination from "../../../components/Pagination.astro"
+import { getCollection } from "astro:content"
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts")
+  const categories = new Set(
+    posts.map(p => (p.data.category || "uncategorized").toLowerCase())
+  )
+
+  return Array.from(categories).map(category => ({
+    params: { category }
+  }))
+}
+
+const { category } = Astro.params
+if (!category) return Astro.redirect("/posts")
+
+const posts = (await getCollection("posts"))
+  .filter(p => (p.data.category || "").toLowerCase() === category)
+  .sort((a, b) => {
+    const aDate = a.data.pubdate ? new Date(a.data.pubdate).getTime() : 0
+    const bDate = b.data.pubdate ? new Date(b.data.pubdate).getTime() : 0
+    return bDate - aDate
+  })
+
+const currentPage = 1
+const totalPages = 5
+const baseUrl = `/posts/${category}`
+
+---
+<Layout title={`${category}`}>
+  <section>
+    <div class="container min-h-screen py-12 px-6 mx-auto">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {posts.map(post => {
+        const slug = post.id.split("/").pop()
+        const url = `/posts/${category}/${slug}`
+
+        return (
+          <CardPosts
+            title={post.data.title}
+            description={post.data.description}
+            image={post.data.heroImage}
+            date={post.data.pubdate ?? null}
+            category={category}
+            url={url}
+            author={post.data.author ? { name: post.data.author } : undefined}
+          />
+        )
+      })}
+      </div>
+      <Pagination
+  currentPage={currentPage}
+  totalPages={totalPages}
+  baseUrl={baseUrl}
+  showEllipsis={false} 
+/>
+    </div>
+    
+  </section>
+</Layout>

@@ -1,45 +1,68 @@
 ---
+// FILE: src/layouts/Layout.astro
+import { Schema } from "astro-seo-schema";
 import Footer from "../components/Footer.astro";
 import Navbar from "../components/Navbar.astro";
+import SEO from "../components/SEO.astro";
+import Slider from "../components/Slider.astro"
+import settings from "../content/settings/website.json"
+import SpeedDial from "../components/SpeedDial.astro";
+import { client } from "../../tina/__generated__/client"
+const contactData = await client.queries.contact({
+  relativePath: "index.json",
+})
+
+const socialLinks =
+  contactData?.data?.contact?.socialMedia?.links ?? []
+
+const c = settings.themeColors
 import "../styles/global.css";
-import '@fontsource/poppins';
-const { title = '', description, url, image } = Astro.props; 
-const siteName = "MAS MIFTAHUL HUDA SANYIR";
+import "@fontsource/poppins";
+import "@fontsource/mr-dafoe";
+
+interface Props {
+  title?: string;
+  description?: string;
+  // ... other props
+}
+
+const { title, description } = Astro.props;
 ---
+
 <!doctype html>
-<html lang="id">
+<html lang="id"
+  style={`
+    --color-bg: ${c.background};
+    --color-surface: ${c.surface};
+    --color-primary: ${c.primary};
+    --color-secondary: ${c.secondary};
+    --color-text-base: ${c.textBase};
+    --color-text-heading: ${c.textHeading};
+    --color-text-muted: ${c.textMuted};
+    --color-link: ${c.link};
+    --color-link-hover: ${c.linkHover};
+    --color-border: ${c.border};
+  `}
+>
   <head>
-    <meta charset="UTF-8" /> 
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title ? `${title} || ` : ''}{siteName}</title>  
-    <meta name="description" content={description ?? "Profil dan layanan Mas Miftahul Huda Sanyir"}/>  
-    <meta name="robots" content="index,follow" />  
-    <link rel="canonical" href={url ?? "https://masmifhda.sch.id/"} />  
-    <meta property="og:locale" content="id_ID" />  
-    <meta property="og:type" content="website" />  
-    <meta property="og:title" content={title} />  
-    <meta property="og:description" content={description ?? "Profil dan layanan Mas Miftahul Huda Sanyir"}/>  
-    <meta property="og:url" content={url ?? "https://masmifhda.sch.id/"}/>  
-    <meta property="og:image" content={image ?? "https://masmifhda.sch.id/mifda-1.jpeg"}/>  
-    <meta name="twitter:card" content="summary_large_image" />  
-    <meta name="twitter:title" content={title} />  
-    <meta name="twitter:description" content={description ?? "Profil dan layanan Mas Miftahul Huda Sanyir"}/>  
-    <meta name="twitter:image" content={image ?? "https://masmifhda.sch.id/mifda-1.jpeg"}/>  
-    <script type="application/ld+json" set:html={JSON.stringify({  
-      "@context": "https://schema.org",  
-      "@type": "Person",  
-      "name": "Mas Miftahul Huda Sanyir",  
-      "url": url ?? "https://masmifhda.sch.id/",  
-      "image": image ?? "https://masmifhda.sch.id/mifda-1.jpeg"  
-    })}>  
-    </script>  
-    <link rel="icon" type="image/svg+xml" href="/favicon.webp" />  
+    <SEO title={title} description={description} url={Astro.url.pathname} />
+    <style is:global>
+      
+      .prose {
+        max-width: none;
+      }
+      .prose img {
+        border-radius: 0.5rem;
+      }
+    </style>
   </head>
-  <body class="bg-white font-sans">
+  <body class="bg-body">
     <Navbar />
-      <main role="main">
-        <slot />
-      </main>
-    <Footer />
+    <main role="main">
+      <slot />
+    </main>
+    <Footer title={title} />
+    <Slider />
+    <SpeedDial socialLinks={socialLinks} />
   </body>
 </html>

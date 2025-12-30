@@ -1,0 +1,46 @@
+{
+  "datappdb": {
+    "schoolName": "SMA NEGERI 1 INDONESIA",
+    "schoolAlias": "SMAN 1 INDO",
+    "logoUrl": "/uploads/logo-sma.png",
+    "coverImageUrl": "/uploads/smanegeri1indonesia.png",
+    "primaryColor": "#003F8E",
+    "secondaryColor": "#0076FD",
+    "academicYear": "2026/2027",
+    "registrationOpen": true,
+    "registrationPeriod": "Gelombang II",
+    "testDate": "4 April 2026",
+    "testTime": "08:000 wib",
+    "testLocation": "Gedung E",
+    "requirements": [
+      {
+        "requirement": "Foto copy Kartu Keluarga"
+      },
+      {
+        "requirement": "Foto copy Akta Kelahiran"
+      },
+      {
+        "requirement": "Foto copy rapor"
+      },
+      {
+        "requirement": "Pas Foto 3x4 (2 lembar)"
+      },
+      {
+        "requirement": "Surat keterangan katolik (bagi yang beragama katolik)"
+      },
+      {
+        "requirement": "Dokumen dalam map merah (P) / biru (L)"
+      }
+    ],
+    "contactPhone": "09812345678",
+    "contactEmail": "gmail@gmail.com",
+    "contactAddress": "Jl. Ki Hajar Dewantara No.116",
+    "statementText": "Saya menyatakan kebenaran data diri orang tua dan menyatakan bahwa:",
+    "enableWaliSection": true,
+    "enableReligionField": true,
+    "showPublishedResults": true
+  },
+  "highlightPamflet": {
+    "customImage": "/uploads/1280w-6UHGujUD_QI.webp"
+  }
+}

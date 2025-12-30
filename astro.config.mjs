@@ -4,14 +4,20 @@ import tailwindcss from "@tailwindcss/vite";
 
 import alpinejs from "@astrojs/alpinejs";
 
-import cloudflare from "@astrojs/cloudflare";
+import sitemap from "@astrojs/sitemap";
+
+import robotsTxt from "astro-robots-txt";
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://masmifhda.sch.id/',
   vite: {
     plugins: [tailwindcss()],
   },
 
-  integrations: [alpinejs()],
-  adapter: cloudflare(),
+  integrations: [alpinejs(), sitemap(), robotsTxt({
+    sitemap: [
+      'https://masmifhda.sch.id/sitemap.xml'
+    ],
+  })],
 });

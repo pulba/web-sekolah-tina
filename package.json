@@ -3,26 +3,34 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "dev": "tinacms dev -c \"astro dev\"",
+    "build": "tinacms build && astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "wpreview": "wrangler pages dev ./dist",
-    "wdeploy": "wrangler pages deploy ./dist --project-name=web-sekolah --branch=masmifhda"
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/alpinejs": "^0.4.9",
-    "@astrojs/cloudflare": "^12.6.10",
+    "@astrojs/sitemap": "^3.6.0",
     "@fontsource/mr-dafoe": "^5.2.8",
     "@fontsource/poppins": "^5.2.7",
+    "@libsql/client": "^0.15.15",
+    "@splidejs/splide": "^4.1.4",
     "@tailwindcss/vite": "^4.1.17",
     "@types/alpinejs": "^3.13.11",
     "alpinejs": "^3.15.2",
     "astro": "^5.15.7",
-    "tailwindcss": "^4.1.17"
+    "astro-robots-txt": "^1.0.0",
+    "astro-seo-schema": "^5.1.0",
+    "dotenv": "^17.2.3",
+    "gsap": "^3.13.0",
+    "markdown-it": "^14.1.0",
+    "schema-dts": "^1.1.5",
+    "tailwindcss": "^4.1.17",
+    "tinacms": "^2.9.5"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.19",
-    "wrangler": "^4.47.0"
+    "@tinacms/cli": "^1.12.4",
+    "@types/node": "^24.10.1"
   }
 }

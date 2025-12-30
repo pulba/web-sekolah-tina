@@ -1,32 +1,32 @@
 ---
-import Sosmed from "./Sosmed.astro";
-import { Image } from "astro:assets";
-import Logo from "../assets/logo.webp";
+import { getCollection } from 'astro:content';
+
+// Ambil data settings
+const settingsData = await getCollection('settings');
+const settings = settingsData[0]?.data || {};
+
+// Ambil nama sekolah dengan cara yang lebih aman
+let schoolName = 'Nama Sekolah';
+
+if (settings.footer?.schoolName) {
+    schoolName = settings.footer.schoolName;
+} else if (settings.header?.schoolInfo?.name) {
+    schoolName = settings.header.schoolInfo.name;
+} else if (settings.slider?.schoolInfo?.name) {
+    schoolName = settings.slider.schoolInfo.name;
+}
+
+
+// Tahun otomatis
+const currentYear = new Date().getFullYear();
 ---
 
-
-<footer role="contentinfo" class="bg-green-800 px-6">
-    <div class="w-full mx-auto p-4 md:py-8">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <a href="/" aria-label="Mas Mifhda" class="flex gap-2 items-center font-bold text-lg text-white">
-                <Image src={Logo} alt="logo ma miftahul huda sanyir" class="w-12 h-12" />
-                <h1>MAS MIFHDA</h1>
-            </a>
-            <Sosmed/>
-            <ul class="flex flex-wrap items-center text-sm font-medium text-white sm:mb-0">
-                <li>
-                    <a href="#" aria-label="Mas Mifhda" class="hover:underline me-4 md:me-6">About</a>
-                </li>
-                <li>
-                    <a href="#" aria-label="Mas Mifhda" class="hover:underline me-4 md:me-6">Privacy Policy</a>
-                </li>
-                <li>
-                    <a href="/contact" aria-label="Mas Mifhda" class="hover:underline">Contact</a>
-                </li>
-            </ul>
-        </div>
-        <hr class="my-6 border border-white/50 sm:mx-auto lg:my-8" />
-        <span class="block text-sm text-white sm:text-center">© 2025 <a href="/" aria-label="Mas Mifhda" class="hover:underline">Mas Mifhda</a>. All Rights Reserved.</span>
+<footer role="contentinfo" class="bg-primary">
+    <div class="container w-full mx-auto py-4">
+        <p class="block text-sm text-surface text-center">
+            © {currentYear}
+            <a href="/" aria-label="footer"> <span class="text-surface hover:text-secondary">{schoolName}</span></a>
+            . All Rights Reserved.
+        </p>
     </div>
 </footer>
-

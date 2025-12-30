@@ -1,0 +1,106 @@
+---
+interface Props {
+  currentPage: number;
+  totalPages: number;
+  baseUrl: string;
+  showEllipsis?: boolean;
+}
+
+const {
+  currentPage,
+  totalPages,
+  baseUrl,
+  showEllipsis = true
+} = Astro.props;
+
+const getPageNumbers = () => {
+  const pageNumbers = [];
+  const maxVisible = 5;
+  
+  if (totalPages <= maxVisible) {
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(i);
+    }
+  } else {
+    if (currentPage <= 3) {
+      for (let i = 1; i <= 4; i++) {
+        pageNumbers.push(i);
+      }
+      if (showEllipsis) pageNumbers.push('...');
+      pageNumbers.push(totalPages);
+    } else if (currentPage >= totalPages - 2) {
+      pageNumbers.push(1);
+      if (showEllipsis) pageNumbers.push('...');
+      for (let i = totalPages - 3; i <= totalPages; i++) {
+        pageNumbers.push(i);
+      }
+    } else {
+      pageNumbers.push(1);
+      if (showEllipsis) pageNumbers.push('...');
+      for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+        pageNumbers.push(i);
+      }
+      if (showEllipsis) pageNumbers.push('...');
+      pageNumbers.push(totalPages);
+    }
+  }
+  
+  return pageNumbers;
+};
+---
+
+<div class="flex flex-wrap items-center justify-center gap-2 my-8">
+  {/* Tombol Previous */}
+  {currentPage > 1 && (
+    <a 
+      href={`${baseUrl}/${currentPage - 1}`}
+      class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+      aria-label="Halaman sebelumnya"
+    >
+      &larr;
+    </a>
+  )}
+  
+  {/* Nomor Halaman */}
+  {getPageNumbers().map((page, index) => (
+    page === '...' ? (
+      <span 
+        key={`ellipsis-${index}`}
+        class="px-3 py-2"
+      >
+        ...
+      </span>
+    ) : (
+      <a
+        key={page}
+        href={`${baseUrl}/${page === 1 ? '' : page}`}
+        class={`px-4 py-2 min-w-10 text-center border rounded-lg transition-colors ${
+          currentPage === page 
+            ? 'bg-primary border-primary text-surface font-semibold' 
+            : 'border-gray-300 hover:bg-gray-50'
+        }`}
+        aria-label={`Halaman ${page}`}
+        aria-current={currentPage === page ? 'page' : undefined}
+      >
+        {page}
+      </a>
+    )
+  ))}
+  
+  {/* Tombol Next */}
+  {currentPage < totalPages && (
+    <a 
+      href={`${baseUrl}/${currentPage + 1}`}
+      class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+      aria-label="Halaman berikutnya"
+    >
+      &rarr;
+    </a>
+  )}
+</div>
+
+<style>
+  a[aria-current="page"] {
+    pointer-events: none;
+  }
+</style>

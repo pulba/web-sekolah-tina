@@ -1,0 +1,475 @@
+---
+// @ts-check
+import Layout from '../../layouts/Layout.astro';
+
+const currentYear = new Date().getFullYear();
+const years = [currentYear, currentYear + 1];
+---
+
+<Layout title="Pendaftaran PPDB">
+  <div class="min-h-screen bg-gradient-to-b from-blue-50 to-white py-8">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <!-- Header -->
+      <div class="text-center mb-10 fade-in-up">
+        <h1 class="text-3xl md:text-4xl font-bold text-[var(--color-ppdb-dark)] mb-3">
+          Pendaftaran PPDB
+        </h1>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Formulir Pendaftaran Peserta Didik Baru Tahun Ajaran {currentYear}/{currentYear + 1}
+        </p>
+      </div>
+
+      <!-- Form Container -->
+      <div class="card-ppdb fade-in-up" style="animation-delay: 0.1s">
+        <!-- Ubah x-data menjadi object literal -->
+        <form 
+          id="ppdbForm" 
+    class="space-y-8"
+    x-data="ppdbForm()"  
+    @submit.prevent="submitForm"
+        >
+          <!-- Section 1: Informasi Pendaftaran -->
+          <div class="space-y-6">
+            <h2 class="section-title">📋 Informasi Pendaftaran</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+              <!-- Tahun PPDB -->
+              <div>
+                <label class="form-label">Tahun PPDB</label>
+                <select 
+                  name="tahun_ppdb" 
+                  required
+                  class="form-input"
+                  x-model="formData.tahun_ppdb"
+                >
+                  <option value="">Pilih Tahun</option>
+                  {years.map(year => (
+                    <option value={year}>{year}</option>
+                  ))}
+                </select>
+              </div>
+
+              <!-- Jenjang Pendidikan -->
+              <div>
+                <label class="form-label">Jenjang Pendidikan</label>
+                <select 
+                  name="jenjang_pendidikan" 
+                  required
+                  class="form-input"
+                  x-model="formData.jenjang_pendidikan"
+                  @change="updateJurusanFields()"
+                >
+                  <option value="">Pilih Jenjang</option>
+                  <option value="SMP">SMP</option>
+                  <option value="SMA">SMA</option>
+                  <option value="SMK">SMK</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Dynamic Jurusan Fields -->
+            <div>
+              <!-- SMA -->
+              <template x-if="formData.jenjang_pendidikan === 'SMA'">
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label class="form-label">Jurusan Pilihan 1</label>
+                    <select 
+                      name="jurusan_pilihan_1" 
+                      required
+                      class="form-input"
+                      x-model="formData.jurusan_pilihan_1"
+                    >
+                      <option value="">Pilih Jurusan</option>
+                      <option value="IPA">IPA</option>
+                      <option value="IPS">IPS</option>
+                      <option value="Bahasa">Bahasa</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="form-label-optional">Jurusan Pilihan 2</label>
+                    <select 
+                      name="jurusan_pilihan_2"
+                      class="form-input"
+                      x-model="formData.jurusan_pilihan_2"
+                    >
+                      <option value="">Pilih Jurusan (Opsional)</option>
+                      <option value="IPA">IPA</option>
+                      <option value="IPS">IPS</option>
+                      <option value="Bahasa">Bahasa</option>
+                    </select>
+                  </div>
+                </div>
+              </template>
+
+              <!-- SMK -->
+              <template x-if="formData.jenjang_pendidikan === 'SMK'">
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label class="form-label">Jurusan Utama</label>
+                    <select 
+                      name="jurusan_utama" 
+                      required
+                      class="form-input"
+                      x-model="formData.jurusan_utama"
+                    >
+                      <option value="">Pilih Jurusan</option>
+                      <option value="TKJ">Teknik Komputer & Jaringan</option>
+                      <option value="RPL">Rekayasa Perangkat Lunak</option>
+                      <option value="MM">Multimedia</option>
+                      <option value="AK">Akuntansi</option>
+                      <option value="AP">Administrasi Perkantoran</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="form-label-optional">Jurusan Alternatif</label>
+                    <select 
+                      name="jurusan_alternatif"
+                      class="form-input"
+                      x-model="formData.jurusan_alternatif"
+                    >
+                      <option value="">Pilih Jurusan Alternatif</option>
+                      <option value="TKJ">Teknik Komputer & Jaringan</option>
+                      <option value="RPL">Rekayasa Perangkat Lunak</option>
+                      <option value="MM">Multimedia</option>
+                      <option value="AK">Akuntansi</option>
+                      <option value="AP">Administrasi Perkantoran</option>
+                    </select>
+                  </div>
+                </div>
+              </template>
+
+              <!-- SMP -->
+              <template x-if="formData.jenjang_pendidikan === 'SMP'">
+                <div class="bg-blue-50 border border-blue-100 rounded-lg p-4">
+                  <p class="text-blue-700 text-sm">
+                    <span class="font-medium">Info:</span> Tidak ada pilihan jurusan untuk jenjang SMP
+                  </p>
+                </div>
+              </template>
+            </div>
+          </div>
+
+          <!-- Section 2: Data Pribadi -->
+          <div class="space-y-6">
+            <h2 class="section-title">👤 Data Pribadi Peserta Didik</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <label class="form-label">Nama Lengkap</label>
+                <input 
+                  type="text" 
+                  name="nama_lengkap" 
+                  required
+                  class="form-input"
+                  placeholder="Masukkan nama lengkap"
+                  x-model="formData.nama_lengkap"
+                />
+              </div>
+              
+              <div>
+                <label class="form-label">Nama Panggilan</label>
+                <input 
+                  type="text" 
+                  name="nama_panggilan" 
+                  required
+                  class="form-input"
+                  placeholder="Masukkan nama panggilan"
+                  x-model="formData.nama_panggilan"
+                />
+              </div>
+              
+              <div>
+                <label class="form-label">Tempat Lahir</label>
+                <input 
+                  type="text" 
+                  name="tempat_lahir" 
+                  required
+                  class="form-input"
+                  placeholder="Kota tempat lahir"
+                  x-model="formData.tempat_lahir"
+                />
+              </div>
+              
+              <div>
+                <label class="form-label">Tanggal Lahir</label>
+                <input 
+                  type="date" 
+                  name="tanggal_lahir" 
+                  required
+                  class="form-input"
+                  x-model="formData.tanggal_lahir"
+                />
+              </div>
+              
+              <div>
+                <label class="form-label">Jenis Kelamin</label>
+                <select 
+                  name="jenis_kelamin" 
+                  required
+                  class="form-input"
+                  x-model="formData.jenis_kelamin"
+                >
+                  <option value="">Pilih Jenis Kelamin</option>
+                  <option value="L">Laki-laki</option>
+                  <option value="P">Perempuan</option>
+                </select>
+              </div>
+              
+              <div>
+                <label class="form-label">Agama</label>
+                <select 
+                  name="agama" 
+                  required
+                  class="form-input"
+                  x-model="formData.agama"
+                >
+                  <option value="">Pilih Agama</option>
+                  <option value="Islam">Islam</option>
+                  <option value="Kristen">Kristen</option>
+                  <option value="Katolik">Katolik</option>
+                  <option value="Hindu">Hindu</option>
+                  <option value="Buddha">Buddha</option>
+                  <option value="Konghucu">Konghucu</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <label class="form-label">Nomor HP/WhatsApp</label>
+                <input 
+                  type="tel" 
+                  name="no_hp" 
+                  required
+                  class="form-input"
+                  placeholder="Contoh: 081234567890"
+                  x-model="formData.no_hp"
+                />
+              </div>
+              
+              <div>
+                <label class="form-label">Email</label>
+                <input 
+                  type="email" 
+                  name="email" 
+                  required
+                  class="form-input"
+                  placeholder="email@contoh.com"
+                  x-model="formData.email"
+                />
+              </div>
+            </div>
+            
+            <div>
+              <label class="form-label">Alamat Lengkap</label>
+              <textarea 
+                name="alamat_lengkap" 
+                required
+                rows="3"
+                class="form-input"
+                placeholder="Masukkan alamat lengkap (jalan, RT/RW, kelurahan, kecamatan, kota)"
+                x-model="formData.alamat_lengkap"
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- Section 3: Data Pendidikan Sebelumnya -->
+          <div class="space-y-6">
+            <h2 class="section-title">🏫 Data Pendidikan Sebelumnya</h2>
+            
+            <div class="space-y-6">
+              <div>
+                <label class="form-label">Asal Sekolah</label>
+                <input 
+                  type="text" 
+                  name="asal_sekolah" 
+                  required
+                  class="form-input"
+                  placeholder="Nama sekolah sebelumnya"
+                  x-model="formData.asal_sekolah"
+                />
+              </div>
+              
+              <div>
+                <label class="form-label">Alamat Asal Sekolah</label>
+                <textarea 
+                  name="alamat_asal_sekolah" 
+                  required
+                  rows="2"
+                  class="form-input"
+                  placeholder="Alamat lengkap sekolah sebelumnya"
+                  x-model="formData.alamat_asal_sekolah"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 4: Data Orang Tua -->
+          <div class="space-y-6">
+            <h2 class="section-title">👨‍👩‍👧 Data Orang Tua/Wali</h2>
+            
+            <div class="space-y-8">
+              <!-- Data Ayah -->
+              <div class="bg-gray-50 p-5 rounded-lg">
+                <h3 class="font-medium text-gray-800 mb-4">Data Ayah</h3>
+                <div class="grid md:grid-cols-2 gap-5">
+                  <div>
+                    <label class="form-label">Nama Ayah</label>
+                    <input 
+                      type="text" 
+                      name="nama_ayah" 
+                      required
+                      class="form-input"
+                      placeholder="Nama lengkap ayah"
+                      x-model="formData.nama_ayah"
+                    />
+                  </div>
+                  <div>
+                    <label class="form-label">No. HP Ayah</label>
+                    <input 
+                      type="tel" 
+                      name="no_hp_ayah" 
+                      required
+                      class="form-input"
+                      placeholder="Nomor telepon ayah"
+                      x-model="formData.no_hp_ayah"
+                    />
+                  </div>
+                  <div>
+                    <label class="form-label">Pekerjaan Ayah</label>
+                    <input 
+                      type="text" 
+                      name="pekerjaan_ayah" 
+                      required
+                      class="form-input"
+                      placeholder="Pekerjaan ayah"
+                      x-model="formData.pekerjaan_ayah"
+                    />
+                  </div>
+                  <div>
+                    <label class="form-label">Alamat Ayah</label>
+                    <input 
+                      type="text" 
+                      name="alamat_ayah" 
+                      required
+                      class="form-input"
+                      placeholder="Alamat ayah"
+                      x-model="formData.alamat_ayah"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Data Ibu -->
+              <div class="bg-gray-50 p-5 rounded-lg">
+                <h3 class="font-medium text-gray-800 mb-4">Data Ibu</h3>
+                <div class="grid md:grid-cols-2 gap-5">
+                  <div>
+                    <label class="form-label">Nama Ibu</label>
+                    <input 
+                      type="text" 
+                      name="nama_ibu" 
+                      required
+                      class="form-input"
+                      placeholder="Nama lengkap ibu"
+                      x-model="formData.nama_ibu"
+                    />
+                  </div>
+                  <div>
+                    <label class="form-label">No. HP Ibu</label>
+                    <input 
+                      type="tel" 
+                      name="no_hp_ibu" 
+                      required
+                      class="form-input"
+                      placeholder="Nomor telepon ibu"
+                      x-model="formData.no_hp_ibu"
+                    />
+                  </div>
+                  <div>
+                    <label class="form-label">Pekerjaan Ibu</label>
+                    <input 
+                      type="text" 
+                      name="pekerjaan_ibu" 
+                      required
+                      class="form-input"
+                      placeholder="Pekerjaan ibu"
+                      x-model="formData.pekerjaan_ibu"
+                    />
+                  </div>
+                  <div>
+                    <label class="form-label">Alamat Ibu</label>
+                    <input 
+                      type="text" 
+                      name="alamat_ibu" 
+                      required
+                      class="form-input"
+                      placeholder="Alamat ibu"
+                      x-model="formData.alamat_ibu"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 5: Pernyataan -->
+          <div class="space-y-6">
+            <h2 class="section-title">📝 Pernyataan</h2>
+            
+            <div class="bg-yellow-50 border border-yellow-100 rounded-lg p-5">
+              <div class="flex items-start gap-3">
+                <input 
+                  type="checkbox" 
+                  id="setuju_ketentuan" 
+                  name="setuju_ketentuan"
+                  required
+                  class="mt-1"
+                  x-model="formData.setuju_ketentuan"
+                />
+                <div>
+                  <label for="setuju_ketentuan" class="font-medium text-gray-800">
+                    Saya menyetujui ketentuan berikut:
+                  </label>
+                  <ul class="mt-2 space-y-1 text-sm text-gray-600">
+                    <li class="flex items-center gap-2">
+                      <span class="text-green-600">✓</span>
+                      Data yang saya berikan adalah benar dan dapat dipertanggungjawabkan
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <span class="text-green-600">✓</span>
+                      Saya bersedia mengikuti proses seleksi PPDB sesuai jadwal
+                    </li>
+                    <li class="flex items-center gap-2">
+                      <span class="text-green-600">✓</span>
+                      Saya memahami bahwa keputusan panitia PPDB adalah mutlak
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="pt-4">
+            <button 
+              type="submit" 
+              class="w-full bg-[var(--color-ppdb-primary)] text-white font-medium py-3.5 px-6 rounded-lg
+                     hover:bg-blue-700 transition-colors duration-200
+                     focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+                     disabled:opacity-50 disabled:cursor-not-allowed"
+              :disabled="isSubmitting"
+            >
+              <span x-text="isSubmitting ? 'Menyimpan...' : 'Kirim Pendaftaran'"></span>
+            </button>
+            
+            <p class="mt-3 text-sm text-gray-500 text-center">
+              Pastikan semua data sudah benar sebelum mengirimkan formulir
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</Layout>

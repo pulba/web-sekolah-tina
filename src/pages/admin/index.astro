@@ -1,0 +1,155 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+let applicants = [];
+let isLoading = true;
+
+// In production, add proper authentication
+const isAuthenticated = true; // Replace with actual auth check
+
+if (isAuthenticated) {
+  try {
+    const response = await fetch('/api/ppdb/get-all');
+    if (response.ok) {
+      const result = await response.json();
+      applicants = result.data || [];
+    }
+  } catch (error) {
+    console.error('Error fetching applicants:', error);
+  }
+}
+
+isLoading = false;
+---
+
+<Layout title="Admin Panel - PPDB">
+  <div class="container mx-auto px-4 py-8">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900">Admin Panel PPDB</h1>
+      <p class="text-gray-600 mt-2">Kelola data pendaftar PPDB</p>
+    </div>
+    
+    {isLoading ? (
+      <div class="text-center">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
+        <p class="mt-4 text-gray-600">Memuat data...</p>
+      </div>
+    ) : (
+      <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  No. Pendaftaran
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Nama
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Jenjang
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Tanggal Daftar
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Status
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Aksi
+                </th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              {applicants.map((applicant) => (
+                <tr key={applicant.id} class="hover:bg-gray-50">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm font-medium text-gray-900">
+                      {applicant.nomor_pendaftaran}
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm font-medium text-gray-900">
+                      {applicant.nama_lengkap}
+                    </div>
+                    <div class="text-sm text-gray-500">{applicant.email}</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                      {applicant.jenjang_pendidikan}
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {new Date(applicant.created_at).toLocaleDateString('id-ID')}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                      ${applicant.status === 'accepted' ? 'bg-green-100 text-green-800' : 
+                        applicant.status === 'rejected' ? 'bg-red-100 text-red-800' : 
+                        'bg-yellow-100 text-yellow-800'}`}>
+                      {applicant.status === 'accepted' ? 'Diterima' : 
+                       applicant.status === 'rejected' ? 'Ditolak' : 'Pending'}
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <button 
+                      onclick={`viewDetails('${applicant.applicant_id}')`}
+                      class="text-blue-600 hover:text-blue-900 mr-3"
+                    >
+                      Lihat
+                    </button>
+                    <button 
+                      onclick={`updateStatus('${applicant.applicant_id}', 'accepted')`}
+                      class="text-green-600 hover:text-green-900 mr-3"
+                    >
+                      Terima
+                    </button>
+                    <button 
+                      onclick={`updateStatus('${applicant.applicant_id}', 'rejected')`}
+                      class="text-red-600 hover:text-red-900"
+                    >
+                      Tolak
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    )}
+  </div>
+  
+  <script>
+    async function viewDetails(applicantId) {
+      window.open(`/admin/detail?id=${applicantId}`, '_blank');
+    }
+    
+    async function updateStatus(applicantId, status) {
+      if (!confirm(`Apakah Anda yakin ingin mengubah status menjadi ${status === 'accepted' ? 'DITERIMA' : 'DITOLAK'}?`)) {
+        return;
+      }
+      
+      try {
+        const response = await fetch('/api/ppdb/update-status', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ applicant_id: applicantId, status })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          alert('Status berhasil diubah!');
+          location.reload();
+        } else {
+          alert('Gagal mengubah status: ' + result.error);
+        }
+      } catch (error) {
+        alert('Terjadi kesalahan');
+      }
+    }
+  </script>
+</Layout>

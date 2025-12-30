@@ -1,24 +1,83 @@
 ---
-import { Image } from "astro:assets";
-import Logo from "../assets/logo.webp";
+// src/components/Navbar.astro
+import { getCollection } from "astro:content";
+
+const settingsCollection = await getCollection("settings");
+const settingsData = settingsCollection[0]?.data;
+
+const headerData = settingsData?.header || {};
+// Data untuk logo & nama
+const schoolInfo = headerData?.schoolInfo || {
+  name: "MAS MIFHDA",
+  logo: "/uploads/logo.webp",
+  logoAlt: "Logo Sekolah",
+  logoWidthDesktop: 48,
+  logoWidthMobile: 40,
+};
+
+// Data untuk menu items
+const menuItems = headerData?.items || [];
+
+// Data untuk style settings
+const styleSettings = headerData?.style || {
+  bgColor: "#ffffff",
+  textColor: "#1f2937",
+  hoverColor: "#059669",
+  borderColor: "#e5e7eb",
+  bgTransparent: "solid",
+};
+
+// 3. FALLBACK JIKA DATA KOSONG
+if (menuItems.length === 0) {
+  menuItems.push(
+    { label: "Profil Sekolah", href: "/profile", isActive: true },
+    { label: "Berita", href: "/posts/news", isActive: true },
+    { label: "Pengumuman", href: "/posts/pengumuman", isActive: true },
+    { label: "Prestasi", href: "/posts/prestasi", isActive: true },
+    { label: "Kontak", href: "/contact", isActive: true },
+  );
+}
 ---
 
-<nav role="navigation"
+<nav
+  role="navigation"
   x-data="{ open: false }"
-  class="py-4 px-6 flex flex-col md:flex-row justify-between items-center sticky top-0 z-50 bg-white w-full shadow"
+  class="py-4 px-6 mx-auto w-full flex flex-col justify-evenly items-center sticky top-0 z-50 shadow"
+  style={`
+    --nav-bg: ${styleSettings.bgTransparent === "transparent" ? "transparent" : styleSettings.bgColor};
+    --nav-text: ${styleSettings.textColor};
+    --nav-hover: ${styleSettings.hoverColor};
+    --nav-border: ${styleSettings.borderColor};
+    background-color: var(--nav-bg);
+    color: var(--nav-text);
+    border-bottom: 1px solid var(--nav-border);
+  `}
 >
   <div class="container mx-auto flex items-center justify-between">
     <a
       href="/"
-      class="flex gap-2 items-center font-bold text-lg text-green-800"
+      class="flex gap-2 items-center font-bold text-lg nav-logo"
+      style={`color: ${styleSettings.textColor};`}
     >
-      <Image src={Logo} alt="logo ma miftahul huda sanyir" class="w-12 h-auto" />
-      <h1>MAS MIFHDA</h1>
+      <!-- Logo Dinamis -->
+      <img
+        src={schoolInfo.logo}
+        alt={schoolInfo.logoAlt}
+        class="h-auto logo-desktop"
+        style={`width: ${schoolInfo.logoWidthDesktop}px;`}
+        width={schoolInfo.logoWidthDesktop}
+        height={schoolInfo.logoWidthDesktop}
+      />
+
+      <!-- Nama Sekolah Dinamis -->
+      <h1 class="leading-5 uppercase">{schoolInfo.name}</h1>
     </a>
+
     <!-- Tombol hamburger mobile -->
     <button
-      class="md:hidden inline-flex items-center justify-center p-2 rounded text-green-800 border border-green-800"
-      @click="open = !open"
+      class="md:hidden inline-flex items-center justify-center p-2 rounded nav-hamburger"
+      style={`color: ${styleSettings.textColor}; border-color: ${styleSettings.borderColor};`}
+      x-on:click="open = !open"
       aria-label="Toggle navigation"
     >
       <svg
@@ -53,61 +112,100 @@ import Logo from "../assets/logo.webp";
 
     <!-- Menu desktop -->
     <ul class="md:flex space-x-4 ml-8 hidden">
-      <li>
-        <a href="/profile" class="text-primary hover:text-secondary"
-          >Profil Sekolah</a
-        >
-      </li>
-      <li>
-        <a href="/news" class="text-primary hover:text-secondary">Berita</a>
-      </li>
-      <li>
-        <a href="/announcements" class="text-primary hover:text-secondary"
-          >Pengumuman</a
-        >
-      </li>
-      <li>
-        <a href="/achievements" class="text-primary hover:text-secondary"
-          >Prestasi</a
-        >
-      </li>
-      <li>
-        <a href="/contact" class="text-primary hover:text-secondary">Kontak</a>
-      </li>
+      {
+        menuItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class={`nav-link ${item.isActive ? "font-semibold" : ""} relative before:absolute before:content-[''] before:w-0 before:h-1 before:bg-primary before:-bottom-1 hover:before:w-full before:transition-all before:ease-linear before:duration-300`}
+              style={`color: ${styleSettings.textColor};`}
+              data-hover-color={styleSettings.hoverColor}
+              data-text-color={styleSettings.textColor}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </div>
+
   <!-- Menu mobile -->
   <div
-    class="container mx-auto w-full md:hidden"
+    class="container mx-auto w-full md:hidden mobile-menu"
     x-show="open"
     x-transition
     x-cloak
+    style={`background-color: ${styleSettings.bgColor};`}
   >
     <ul class="flex flex-col space-y-2 mt-3 pb-4">
-      <li>
-        <a
-          href="/profile"
-          aria-label="Mas Mifhda" class="block px-4 py-2 text-primary hover:bg-green-50"
-          >Profil Sekolah</a
-        >
-      </li>
-      <li>
-        <a href="/news" aria-label="Mas Mifhda" class="block px-4 py-2 text-primary hover:bg-green-50"
-          >Berita</a
-        >
-      </li>
-      <li>
-        <a
-          href="/achievements"
-          aria-label="Mas Mifhda" class="block px-4 py-2 text-primary hover:bg-green-50">Prestasi</a
-        >
-      </li>
-      <li>
-        <a
-          href="/contact"
-          aria-label="Mas Mifhda" class="block px-4 py-2 text-primary hover:bg-green-50">Kontak</a
-        >
-      </li>
+      {
+        menuItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class={`block px-4 py-2 mobile-nav-link ${item.isActive ? "bg-opacity-10" : ""}`}
+              style={`
+                color: ${styleSettings.textColor};
+                ${item.isActive ? `background-color: ${styleSettings.hoverColor}20;` : ""}
+              `}
+              data-hover-color={styleSettings.hoverColor}
+              data-text-color={styleSettings.textColor}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </div>
 </nav>
+
+<style is:global>
+  /* Gunakan CSS variables untuk styling dinamis */
+  .nav-link {
+    transition: color 0.2s ease;
+  }
+
+  .nav-link:hover {
+    color: var(--nav-hover) !important;
+  }
+
+  .mobile-nav-link {
+    transition: all 0.2s ease;
+    border-radius: 0.25rem;
+  }
+
+  .mobile-nav-link:hover {
+    color: var(--nav-hover) !important;
+    background-color: var(--nav-hover) 10;
+  }
+
+  .nav-hamburger:hover {
+    background-color: var(--nav-hover) 10;
+  }
+
+  .nav-logo:hover {
+    opacity: 0.9;
+  }
+</style>
+
+<script>
+  // Script untuk menangani hover dengan JavaScript (optional)
+  document.addEventListener("DOMContentLoaded", function () {
+    const navLinks = document.querySelectorAll(".nav-link, .mobile-nav-link");
+
+    navLinks.forEach((link) => {
+      const hoverColor = link.getAttribute("data-hover-color");
+      const textColor = link.getAttribute("data-text-color");
+
+      link.addEventListener("mouseenter", () => {
+        link.style.color = hoverColor;
+      });
+
+      link.addEventListener("mouseleave", () => {
+        link.style.color = textColor;
+      });
+    });
+  });
+</script>

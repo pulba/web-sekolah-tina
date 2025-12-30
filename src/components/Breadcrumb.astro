@@ -1,18 +1,30 @@
 ---
-const { items } = Astro.props
+const { title, parent } = Astro.props
 ---
-
 <nav aria-label="Breadcrumb">
-  <ol class="flex items-center">
-    {items.map((item, index) => (
-      <li class="flex items-center font-bold text-white">
-        <a href={item.href} aria-label={item.label} class="hover:text-green-700">{item.label}</a>
-        {index < items.length - 1 && 
-            <span>
-                <svg class="w-3.5 h-3.5 rtl:rotate-180 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/></svg>
-            </span>}
-      </li>
-    ))}
+  <ol class="flex items-center justify-center flex-wrap text-sm mt-2">
+    <li>
+      <a href="/">
+        <p class="text-surface hover:text-secondary">Home</p>
+      </a>
+    </li>
+
+    <span class="text-surface mx-1">›</span>
+
+    {parent && (
+      <>
+        <li>
+          <a href={parent.href} class="text-surface hover:text-secondary">
+            
+            <p class="text-surface hover:text-secondary">{parent.label}</p>
+          </a>
+        </li>
+        <span class="text-surface mx-1">›</span>
+      </>
+    )}
+
+    <li class="text-secondary">
+      {title}
+    </li>
   </ol>
 </nav>
-
