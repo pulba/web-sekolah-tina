@@ -1,6 +1,5 @@
 // src/pages/api/ppdb/admin/applicants.js
 import turso from "../../../../../lib/turso.js";
-import { requireAdminAuth } from "../../../../lib/adminAuth.js";
 
 export const prerender = false;
 

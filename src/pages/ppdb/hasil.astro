@@ -1,6 +1,5 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import StatusBadge from '../../components/StatusBadge.astro';
 
 const applicantId = Astro.cookies.get('ppdb_applicant_id')?.value || 
                     (typeof window !== 'undefined' ? localStorage.getItem('ppdb_applicant_id') : null);
@@ -53,7 +52,6 @@ isLoading = false;
                   No. Pendaftaran: {applicantData.nomor_pendaftaran}
                 </p>
               </div>
-              <StatusBadge status={applicantData.status} />
             </div>
           </div>
           
