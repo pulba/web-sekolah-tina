@@ -7,13 +7,10 @@ import SEO from "../components/SEO.astro";
 import Slider from "../components/Slider.astro"
 import settings from "../content/settings/website.json"
 import SpeedDial from "../components/SpeedDial.astro";
-import { client } from "../../tina/__generated__/client"
-const contactData = await client.queries.contact({
-  relativePath: "index.json",
-})
+import contact from "../content/contact/index.json"
 
 const socialLinks =
-  contactData?.data?.contact?.socialMedia?.links ?? []
+  contact?.socialMedia?.links ?? []
 
 const c = settings.themeColors
 import "../styles/global.css";
