@@ -15,7 +15,6 @@ if (isAuthenticated) {
       applicants = result.data || [];
     }
   } catch (error) {
-    console.error('Error fetching applicants:', error);
   }
 }
 
@@ -23,7 +22,7 @@ isLoading = false;
 ---
 
 <Layout title="Admin Panel - PPDB">
-  <div class="container mx-auto px-4 py-8">
+  <div class="container min-h-screen mx-auto px-4 py-8">
     <div class="mb-8">
       <h1 class="text-3xl font-bold text-gray-900">Admin Panel PPDB</h1>
       <p class="text-gray-600 mt-2">Kelola data pendaftar PPDB</p>

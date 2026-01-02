@@ -1,0 +1,388 @@
+---
+// src/pages/admin/ppdb.astro
+import Layout from '../../layouts/Layout.astro';
+import { getAllUsers } from '../../lib/db';
+
+const usersResult = await getAllUsers();
+const allUsers = usersResult.success ? usersResult.data : [];
+
+// Get unique years from data
+const uniqueYears = [...new Set(allUsers.map(user => user.tahun_ppdb))].sort();
+
+// Get current year from URL or default to "Semua"
+const url = new URL(Astro.request.url);
+const selectedYear = url.searchParams.get('tahun') || 'Semua';
+
+// Filter users by year if selected
+const filteredUsers = selectedYear === 'Semua' 
+  ? allUsers 
+  : allUsers.filter(user => user.tahun_ppdb === selectedYear);
+
+// Calculate statistics
+const calculateStats = (users) => {
+  const total = users.length;
+  const pending = users.filter(u => !u.status || u.status === 'pending').length;
+  const review = users.filter(u => u.status === 'review').length;
+  const approved = users.filter(u => u.status === 'approved').length;
+  const rejected = users.filter(u => u.status === 'rejected').length;
+  
+  return { total, pending, review, approved, rejected };
+};
+
+const stats = calculateStats(filteredUsers);
+const allStats = calculateStats(allUsers);
+---
+
+<Layout title="Admin PPDB">
+  <div class="container min-h-screen mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Admin Panel - Pendaftaran PPDB</h1>
+    <button 
+        id="logoutBtn"
+        class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition text-sm font-medium flex items-center"
+      >
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+        </svg>
+        Logout
+      </button>
+    <!-- Filter Section -->
+    <div class="bg-body rounded-xl shadow-lg p-6 mb-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <!-- Year Filter -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Filter Berdasarkan Tahun PPDB</label>
+          <div class="flex flex-wrap gap-2">
+            <a href="?tahun=Semua">
+              <p class={`px-4 py-2 rounded-lg font-medium transition ${
+                selectedYear === 'Semua' 
+                  ? 'bg-primary text-surface' 
+                  : 'bg-secondary text-surface hover:bg-primary'
+              }`}>Semua Tahun</p>
+            </a>
+            {uniqueYears.map(year => (
+              <a href={`?tahun=${year}`}>
+                <p class={`px-4 py-2 rounded-lg font-medium transition ${
+                  selectedYear === year 
+                    ? 'bg-primary text-surface hover:bg-secondary' 
+                    : 'bg-secondary text-surface hover:bg-primary'
+                }`}>{year}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+        
+        <!-- Export Button -->
+        <div>
+          <a 
+            href="/api/ppdb/export?tahun={selectedYear !== 'Semua' ? selectedYear : ''}"
+            class=""
+          >
+            <span class="bg-green-700 text-white w-max flex flex-row items-center px-3 py-2 rounded-lg">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+              Export CSV
+              </a>
+            </p>
+        </div>
+      </div>
+      
+      <!-- Current Filter Info -->
+      <div class="mt-4 text-sm text-gray-600">
+        <p>
+          Menampilkan data untuk: 
+          <span class="font-medium ml-1">
+            {selectedYear === 'Semua' ? 'Semua Tahun' : `Tahun ${selectedYear}`}
+          </span>
+        </p>
+      </div>
+    </div>
+    
+    <!-- Statistics Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+      <!-- Total Card -->
+      <div class="bg-body rounded-xl shadow-lg p-6 border-t-4 border-blue-500">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-600">Total Pendaftar</p>
+            <p class="text-2xl font-bold text-gray-800">{stats.total}</p>
+          </div>
+          <div class="p-3 bg-blue-100 rounded-lg">
+            <svg class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+          </div>
+        </div>
+        <p class="text-xs text-gray-500 mt-2">
+          {selectedYear === 'Semua' ? 'Semua tahun' : `Tahun ${selectedYear}`}
+        </p>
+      </div>
+      
+      <!-- Pending Card -->
+      <div class="bg-body rounded-xl shadow-lg p-6 border-t-4 border-yellow-500">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-600">Menunggu</p>
+            <p class="text-2xl font-bold text-gray-800">{stats.pending}</p>
+          </div>
+          <div class="p-3 bg-yellow-100 rounded-lg">
+            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+        </div>
+        <p class="text-xs text-gray-500 mt-2">
+          {stats.total > 0 ? `${Math.round((stats.pending / stats.total) * 100)}% dari total` : 'Tidak ada data'}
+        </p>
+      </div>
+      
+      <!-- Review Card -->
+      <div class="bg-body rounded-xl shadow-lg p-6 border-t-4 border-blue-500">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-600">Dalam Review</p>
+            <p class="text-2xl font-bold text-gray-800">{stats.review}</p>
+          </div>
+          <div class="p-3 bg-blue-100 rounded-lg">
+            <svg class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+            </svg>
+          </div>
+        </div>
+        <p class="text-xs text-gray-500 mt-2">
+          {stats.total > 0 ? `${Math.round((stats.review / stats.total) * 100)}% dari total` : 'Tidak ada data'}
+        </p>
+      </div>
+      
+      <!-- Approved Card -->
+      <div class="bg-body rounded-xl shadow-lg p-6 border-t-4 border-green-500">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-600">Diterima</p>
+            <p class="text-2xl font-bold text-gray-800">{stats.approved}</p>
+          </div>
+          <div class="p-3 bg-green-100 rounded-lg">
+            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+        </div>
+        <p class="text-xs text-gray-500 mt-2">
+          {stats.total > 0 ? `${Math.round((stats.approved / stats.total) * 100)}% dari total` : 'Tidak ada data'}
+        </p>
+      </div>
+      
+      <!-- Rejected Card -->
+      <div class="bg-body rounded-xl shadow-lg p-6 border-t-4 border-red-500">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-600">Ditolak</p>
+            <p class="text-2xl font-bold text-gray-800">{stats.rejected}</p>
+          </div>
+          <div class="p-3 bg-red-100 rounded-lg">
+            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+        </div>
+        <p class="text-xs text-gray-500 mt-2">
+          {stats.total > 0 ? `${Math.round((stats.rejected / stats.total) * 100)}% dari total` : 'Tidak ada data'}
+        </p>
+      </div>
+    </div>
+    
+    
+    <!-- Users Table -->
+    <div class="bg-body rounded-xl shadow-lg overflow-hidden">
+      <div class="px-6 py-4 border-b border-gray-200 flex flex-col sm:flex-row justify-between items-center">
+        <div>
+          <h2 class="text-lg font-semibold text-gray-800">Daftar Pendaftar</h2>
+          <p class="text-sm text-gray-600">
+            {selectedYear === 'Semua' 
+              ? `Menampilkan ${filteredUsers.length} dari ${allUsers.length} pendaftar` 
+              : `Menampilkan ${filteredUsers.length} pendaftar untuk tahun ${selectedYear}`}
+          </p>
+        </div>
+        
+      </div>
+      
+      {filteredUsers.length > 0 ? (
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tahun</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
+              </tr>
+            </thead>
+            <tbody class="bg-body divide-y divide-gray-200">
+              {filteredUsers.map((user) => (
+                <tr class="hover:bg-gray-50">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm font-mono text-gray-900">{user.id}</div>
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="text-sm font-medium text-gray-900">{user.nama_lengkap}</div>
+                    <div class="text-sm text-gray-500">{user.nama_panggilan}</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">{user.tahun_ppdb}</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">
+                      {new Date(user.created_at).toLocaleDateString('id-ID')}
+                    </div>
+                    <div class="text-xs text-gray-500">
+                      {new Date(user.created_at).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full status-badge ${
+                      user.status === 'approved' ? 'bg-green-100 text-green-800' :
+                      user.status === 'rejected' ? 'bg-red-100 text-red-800' :
+                      user.status === 'review' ? 'bg-blue-100 text-blue-800' :
+                      'bg-yellow-100 text-yellow-800'
+                    }`}>
+                      {user.status || 'pending'}
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <a 
+                      href={`/admin/ppdb/detail?id=${user.id}`}
+                      class="text-secondary hover:text-blue-900 mr-3"
+                    >
+                      Detail
+                    </a>
+                    <a 
+                      href={`/api/ppdb/update-status?id=${user.id}&status=approved`}
+                      class="text-green-600 hover:text-green-900 mr-2 action-approve"
+                    >
+                      Terima
+                    </a>
+                    <a 
+                      href={`/api/ppdb/update-status?id=${user.id}&status=rejected`}
+                      class="text-red-600 hover:text-red-900 action-reject"
+                    >
+                      Tolak
+                    </a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div class="text-center py-12">
+          <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+          <h3 class="mt-2 text-sm font-medium text-gray-900">Belum ada pendaftaran</h3>
+          <p class="mt-1 text-sm text-gray-500">
+            {selectedYear === 'Semua' 
+              ? 'Tidak ada data pendaftaran untuk ditampilkan.' 
+              : `Tidak ada pendaftaran untuk tahun ${selectedYear}.`}
+          </p>
+          <div class="mt-4">
+            <a href="/ppdb" class="text-secondary hover:text-blue-800 font-medium">
+              Buat pendaftaran baru →
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
+    
+    <!-- Comparison Stats -->
+    <div class="bg-body rounded-xl shadow-lg p-6 mb-6">
+      <h3 class="text-lg font-bold text-gray-800 mb-4">Perbandingan Statistik</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <h4 class="font-medium text-gray-700 mb-2">Data yang Ditampilkan</h4>
+          <p class="text-sm text-gray-600 mb-3">
+            {selectedYear === 'Semua' 
+              ? 'Semua data pendaftaran dari semua tahun' 
+              : `Data pendaftaran untuk tahun ${selectedYear}`}
+          </p>
+          <div class="space-y-2">
+            <div class="flex justify-between text-sm">
+              <span>Total Pendaftar:</span>
+              <span class="font-medium">{stats.total} orang</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span>Persentase Diterima:</span>
+              <span class="font-medium">
+                {stats.total > 0 ? `${Math.round((stats.approved / stats.total) * 100)}%` : '0%'}
+              </span>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="font-medium text-gray-700 mb-2">Statistik Keseluruhan</h4>
+          <p class="text-sm text-gray-600 mb-3">Data dari semua tahun akademik</p>
+          <div class="space-y-2">
+            <div class="flex justify-between text-sm">
+              <span>Total Semua Pendaftar:</span>
+              <span class="font-medium">{allStats.total} orang</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span>Tahun Akademik Tersedia:</span>
+              <span class="font-medium">{uniqueYears.length} tahun</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer Summary -->
+    <div class="mt-6 text-center text-sm text-gray-500">
+      <p>
+        {selectedYear === 'Semua' 
+          ? `Menampilkan semua data dari ${uniqueYears.length} tahun akademik` 
+          : `Data hanya untuk tahun akademik ${selectedYear}`}
+      </p>
+      <p class="mt-1">
+        Terakhir diupdate: {new Date().toLocaleDateString('id-ID', { 
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        })}
+      </p>
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Logout function
+      document.getElementById('logoutBtn').addEventListener('click', async function() {
+        if (confirm('Apakah Anda yakin ingin logout?')) {
+          try {
+            await fetch('/api/admin/logout', { method: 'POST' });
+            window.location.href = '/admin/login';
+          } catch (error) {
+            alert('Gagal logout. Silakan coba lagi.');
+          }
+        }
+      });
+      // Konfirmasi sebelum update status
+      document.querySelectorAll('.action-approve, .action-reject').forEach(link => {
+        link.addEventListener('click', function(e) {
+          const action = this.classList.contains('action-approve') ? 'menerima' : 'menolak';
+          const confirmed = confirm(`Apakah Anda yakin ingin ${action} pendaftaran ini?`);
+          
+          if (!confirmed) {
+            e.preventDefault();
+          }
+        });
+      });
+      
+     
+     
+    });
+  </script>
+</Layout>

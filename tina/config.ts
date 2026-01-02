@@ -1,6 +1,7 @@
-//FILE: tina/contig.ts
-
+//FILE: tina/config.ts
+import 'dotenv/config'
 import { defineConfig } from "tinacms"
+import { GitHubProvider } from 'tinacms-gitprovider-github';
 import { SOCIAL_ICON_REGISTRY } from "../src/config/socialIcons"
 
 const socialIconOptions = Object.entries(SOCIAL_ICON_REGISTRY ?? {}).map(
@@ -10,28 +11,23 @@ const socialIconOptions = Object.entries(SOCIAL_ICON_REGISTRY ?? {}).map(
   })
 )
 
-
-const branch =
-  process.env.GITHUB_BRANCH ||
-  process.env.VERCEL_GIT_COMMIT_REF ||
-  process.env.HEAD ||
-  "main"
-
 export default defineConfig({
-  branch,
-  clientId: process.env.GITHUB_CLIENT_ID,
-  token: process.env.GITHUB_CLIENT_SECRET,
-
+  clientId: process.env.TINA_CLIENT_ID,
+  token: process.env.TINA_TOKEN,
+  branch: process.env.GITHUB_BRANCH || 'main',
+  // database: {
+  //   provider: new GitHubProvider({
+  //     branch: process.env.GITHUB_BRANCH || 'main',
+  //     owner: process.env.GITHUB_OWNER!,
+  //     repo: process.env.GITHUB_REPO!,
+  //     token: process.env.GITHUB_PERSONAL_ACCESS_TOKEN!,
+  //   }),
+  // },
 
   local: {
-    enabled: false,
-    apiUrl: "http://localhost:4001/api/tina",
+    enabled: true,
+    apiUrl: "http://localhost:4321/api/tina",
   },
-
-  experimental: {
-    visualEditing: true
-  },
-
 
   build: {
     outputFolder: "admin",
@@ -1585,3 +1581,4 @@ export default defineConfig({
     ],
   },
 })
+
