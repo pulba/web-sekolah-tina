@@ -12,7 +12,7 @@ const socialIconOptions = Object.entries(SOCIAL_ICON_REGISTRY ?? {}).map(
 export default defineConfig({
   clientId: "ed5e3105-0099-4d6e-856e-d59cea0acf03",
   token: "19c4ba9bf4f5d9abc37e57bd706cca4e15e39f17",
-  // branch: process.env.GITHUB_BRANCH || 'main',
+  branch: process.env.GITHUB_BRANCH || 'main',
   // database: {
   //   provider: new GitHubProvider({
   //     branch: process.env.GITHUB_BRANCH || 'main',
