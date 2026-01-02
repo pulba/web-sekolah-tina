@@ -30,7 +30,7 @@ export default defineConfig({
   },
 
   build: {
-    outputFolder: "admin",
+    outputFolder: "dash",
     publicFolder: "public",
   },
 
