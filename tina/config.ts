@@ -1,7 +1,5 @@
 //FILE: tina/config.ts
-import 'dotenv/config'
 import { defineConfig } from "tinacms"
-import { GitHubProvider } from 'tinacms-gitprovider-github';
 import { SOCIAL_ICON_REGISTRY } from "../src/config/socialIcons"
 
 const socialIconOptions = Object.entries(SOCIAL_ICON_REGISTRY ?? {}).map(
@@ -12,9 +10,9 @@ const socialIconOptions = Object.entries(SOCIAL_ICON_REGISTRY ?? {}).map(
 )
 
 export default defineConfig({
-  clientId: process.env.TINA_CLIENT_ID,
-  token: process.env.TINA_TOKEN,
-  branch: process.env.GITHUB_BRANCH || 'main',
+  clientId: "ed5e3105-0099-4d6e-856e-d59cea0acf03",
+  token: "19c4ba9bf4f5d9abc37e57bd706cca4e15e39f17",
+  // branch: process.env.GITHUB_BRANCH || 'main',
   // database: {
   //   provider: new GitHubProvider({
   //     branch: process.env.GITHUB_BRANCH || 'main',
