@@ -4,11 +4,11 @@ import { verifySession, destroySession } from '../lib/auth';
 
 // List route yang perlu authentication
 const PROTECTED_ROUTES = [
-  '/admin',
-  '/admin/',
-  '/admin/ppdb',
-  '/admin/ppdb/',
-  '/admin/ppdb/detail',
+  '/dashboard',
+  '/dashboard/',
+  '/dashboard/ppdb',
+  '/dashboard/ppdb/',
+  '/dashboard/ppdb/detail',
   '/api/ppdb/update-status',
   '/api/ppdb/export'
 ];
@@ -42,7 +42,7 @@ export function onRequest(context: APIContext, next: MiddlewareNext) {
       });
     } else {
       // Untuk pages, redirect ke login
-      return Response.redirect(new URL('/admin/login', url), 302);
+      return Response.redirect(new URL('/dashboard/login', url), 302);
     }
   }
   

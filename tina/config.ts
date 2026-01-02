@@ -23,12 +23,12 @@ export default defineConfig({
   // },
 
   local: {
-    enabled: true,
+    enabled: false,
     apiUrl: "http://localhost:4321/api/tina",
   },
 
   build: {
-    outputFolder: "dash",
+    outputFolder: "admin",
     publicFolder: "public",
   },
 
