@@ -130,7 +130,8 @@
       "direction": ""
     },
     "animation": {
-      "autoSlide": true
+      "autoSlide": true,
+      "marqueeSpeed": 2
     }
   },
   "seo": {
