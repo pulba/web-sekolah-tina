@@ -131,7 +131,7 @@
     },
     "animation": {
       "autoSlide": true,
-      "marqueeSpeed": 2
+      "marqueeSpeed": 1
     }
   },
   "seo": {
