@@ -74,10 +74,6 @@
         "label": "Kontak",
         "href": "/contact",
         "isActive": false
-      },
-      {
-        "label": "Akademik",
-        "href": "/posts/akademik"
       }
     ],
     "style": {
@@ -92,7 +88,8 @@
       "logo": "/uploads/logo-sma.png",
       "logoAlt": "Logo Sekolah",
       "logoWidthDesktop": 40,
-      "logoWidthMobile": 40
+      "logoWidthMobile": 40,
+      "showName": true
     }
   },
   "slider": {
@@ -125,9 +122,9 @@
         }
       }
     },
-    "gradient": {
-      "from": "#000000",
-      "direction": ""
+    "overlay": {
+      "color": "#000000",
+      "opacity": "0.8"
     },
     "animation": {
       "autoSlide": true,

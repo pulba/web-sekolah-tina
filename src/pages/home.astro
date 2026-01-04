@@ -1,0 +1,711 @@
+---
+import Layout from "../layouts/Layout.astro"
+---
+
+<Layout>
+
+<section id="hero" class="bg-linear-to-b from-white to-gray-600">
+  <div class="container mx-auto px-4 py-12 h-screen">
+    <div class="flex flex-col lg:flex-row items-center justify-between gap-12">
+      <div class="lg:w-1/2">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-6">
+          Solusi Digital Terpadu
+          <span class="text-secondary block">untuk Sekolah Masa Kini</span>
+        </h1>
+        
+        <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+          Solusi pengembangan website sekolah yang mendukung transparansi informasi, manajemen akademik, dan konektivitas antara sekolah, siswa, dan orang tua.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#tema" class="bg-primary text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-secondary transition text-center">
+            Lihat Tema
+          </a>
+          <a href="#testimonial" class="border-2 border-primary text-primary px-8 py-3 rounded-lg text-lg font-medium hover:bg-primary hover:text-white transition text-center">
+            Testimoni Klien
+          </a>
+        </div>
+        
+        <div class="mt-12 flex flex-wrap gap-8 items-center">
+          <div class="text-center">
+            <div class="text-3xl font-bold text-primary">200+</div>
+            <div class="text-gray-600">Website Sekolah</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold text-primary">100%</div>
+            <div class="text-gray-600">Kepuasan Klien</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold text-primary">24/7</div>
+            <div class="text-gray-600">Support Teknis</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="lg:w-1/2">
+        <div class="relative">
+          <div class="bg-white rounded-2xl shadow-xl p-6 border border-gray-200">
+            <div class="space-y-3">
+              <div class="flex justify-between items-center">
+                <span>SD/MI</span>
+                <span class="font-medium text-primary">35%</span>
+              </div>
+              <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div class="h-full bg-primary w-[35%]"></div>
+              </div>
+              
+              <div class="flex justify-between items-center">
+                <span>SMP/MTS</span>
+                <span class="font-medium text-primary">30%</span>
+              </div>
+              <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div class="h-full bg-secondary w-[30%]"></div>
+              </div>
+              
+              <div class="flex justify-between items-center">
+                <span>SMA/SMK</span>
+                <span class="font-medium text-primary">35%</span>
+              </div>
+              <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div class="h-full bg-primary w-[35%]"></div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="fitur" class="py-16 md:py-24 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">
+        Fitur Lengkap Website Sekolah
+      </h2>
+      <p class="text-lg text-gray-600">
+        Website yang kami buat dilengkapi dengan fitur-fitur esensial untuk kebutuhan sekolah modern
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Fitur 1 -->
+      <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 hover:shadow-lg transition">
+        <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+          <div class="w-8 h-8 bg-primary rounded-lg"></div>
+        </div>
+        <h3 class="text-xl font-bold text-primary mb-4">Berita & Pengumuman</h3>
+        <p class="text-gray-600 mb-6">
+          Sistem CMS untuk mempublikasikan berita sekolah, pengumuman penting, agenda kegiatan, dan informasi terkini.
+        </p>
+        <ul class="space-y-2">
+          <li class="flex items-center">
+            <div class="w-5 h-5 bg-secondary/20 rounded-full mr-3 flex items-center justify-center">
+              <div class="w-2 h-2 bg-secondary rounded-full"></div>
+            </div>
+            <span>Editor WYSIWYG mudah digunakan</span>
+          </li>
+          <li class="flex items-center">
+            <div class="w-5 h-5 bg-secondary/20 rounded-full mr-3 flex items-center justify-center">
+              <div class="w-2 h-2 bg-secondary rounded-full"></div>
+            </div>
+            <span>Kategori berita terorganisir</span>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- Fitur 2 -->
+      <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 hover:shadow-lg transition">
+        <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+          <div class="w-8 h-8 bg-primary rounded-lg"></div>
+        </div>
+        <h3 class="text-xl font-bold text-primary mb-4">Galeri & Dokumentasi</h3>
+        <p class="text-gray-600 mb-6">
+          Album foto kegiatan sekolah, video pembelajaran, dan dokumentasi acara dengan tampilan menarik.
+        </p>
+        <ul class="space-y-2">
+          <li class="flex items-center">
+            <div class="w-5 h-5 bg-secondary/20 rounded-full mr-3 flex items-center justify-center">
+              <div class="w-2 h-2 bg-secondary rounded-full"></div>
+            </div>
+            <span>Gallery slider & lightbox</span>
+          </li>
+          <li class="flex items-center">
+            <div class="w-5 h-5 bg-secondary/20 rounded-full mr-3 flex items-center justify-center">
+              <div class="w-2 h-2 bg-secondary rounded-full"></div>
+            </div>
+            <span>Kategori album terpisah</span>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- Fitur 3 -->
+      <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 hover:shadow-lg transition">
+        <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+          <div class="w-8 h-8 bg-primary rounded-lg"></div>
+        </div>
+        <h3 class="text-xl font-bold text-primary mb-4">Profil Sekolah</h3>
+        <p class="text-gray-600 mb-6">
+          Halaman lengkap tentang visi misi, sejarah, fasilitas, prestasi, dan struktur organisasi sekolah.
+        </p>
+        <ul class="space-y-2">
+          <li class="flex items-center">
+            <div class="w-5 h-5 bg-secondary/20 rounded-full mr-3 flex items-center justify-center">
+              <div class="w-2 h-2 bg-secondary rounded-full"></div>
+            </div>
+            <span>Profil guru & staf</span>
+          </li>
+          <li class="flex items-center">
+            <div class="w-5 h-5 bg-secondary/20 rounded-full mr-3 flex items-center justify-center">
+              <div class="w-2 h-2 bg-secondary rounded-full"></div>
+            </div>
+            <span>Fasilitas sekolah lengkap</span>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- Fitur 4 -->
+      <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 hover:shadow-lg transition">
+        <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+          <div class="w-8 h-8 bg-primary rounded-lg"></div>
+        </div>
+        <h3 class="text-xl font-bold text-primary mb-4">Sistem Akademik</h3>
+        <p class="text-gray-600 mb-6">
+          Fitur jadwal pelajaran, kalender akademik, e-learning, dan portal nilai siswa (opsional).
+        </p>
+        <ul class="space-y-2">
+          <li class="flex items-center">
+            <div class="w-5 h-5 bg-secondary/20 rounded-full mr-3 flex items-center justify-center">
+              <div class="w-2 h-2 bg-secondary rounded-full"></div>
+            </div>
+            <span>Jadwal pelajaran interaktif</span>
+          </li>
+          <li class="flex items-center">
+            <div class="w-5 h-5 bg-secondary/20 rounded-full mr-3 flex items-center justify-center">
+              <div class="w-2 h-2 bg-secondary rounded-full"></div>
+            </div>
+            <span>Kalender akademik</span>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- Fitur 5 -->
+      <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 hover:shadow-lg transition">
+        <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+          <div class="w-8 h-8 bg-primary rounded-lg"></div>
+        </div>
+        <h3 class="text-xl font-bold text-primary mb-4">Mobile Responsive</h3>
+        <p class="text-gray-600 mb-6">
+          Website optimal di semua perangkat: desktop, tablet, dan smartphone. Akses mudah untuk orang tua.
+        </p>
+        <ul class="space-y-2">
+          <li class="flex items-center">
+            <div class="w-5 h-5 bg-secondary/20 rounded-full mr-3 flex items-center justify-center">
+              <div class="w-2 h-2 bg-secondary rounded-full"></div>
+            </div>
+            <span>Responsive di semua device</span>
+          </li>
+          <li class="flex items-center">
+            <div class="w-5 h-5 bg-secondary/20 rounded-full mr-3 flex items-center justify-center">
+              <div class="w-2 h-2 bg-secondary rounded-full"></div>
+            </div>
+            <span>Loading cepat & SEO friendly</span>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- Fitur 6 -->
+      <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 hover:shadow-lg transition">
+        <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+          <div class="w-8 h-8 bg-primary rounded-lg"></div>
+        </div>
+        <h3 class="text-xl font-bold text-primary mb-4">Admin Panel</h3>
+        <p class="text-gray-600 mb-6">
+          Dashboard admin yang mudah digunakan untuk mengelola konten tanpa perlu kemampuan coding.
+        </p>
+        <ul class="space-y-2">
+          <li class="flex items-center">
+            <div class="w-5 h-5 bg-secondary/20 rounded-full mr-3 flex items-center justify-center">
+              <div class="w-2 h-2 bg-secondary rounded-full"></div>
+            </div>
+            <span>User-friendly interface</span>
+          </li>
+          <li class="flex items-center">
+            <div class="w-5 h-5 bg-secondary/20 rounded-full mr-3 flex items-center justify-center">
+              <div class="w-2 h-2 bg-secondary rounded-full"></div>
+            </div>
+            <span>Multi-user dengan permission</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Paket Layanan -->
+    <div class="mt-16 bg-gray-50 rounded-2xl p-8 border border-gray-200">
+      <div class="text-center mb-8">
+        <h3 class="text-2xl font-bold text-primary mb-2">Paket Jasa Pembuatan Website</h3>
+        <p class="text-gray-600">Pilih paket sesuai kebutuhan sekolah Anda</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-xl border border-gray-300">
+          <h4 class="text-xl font-bold text-primary mb-2">Paket Dasar</h4>
+          <div class="text-3xl font-bold mb-4">Rp 3.5jt<span class="text-lg text-gray-500">/ sekali bayar</span></div>
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-center">
+              <div class="w-5 h-5 bg-green-500 rounded-full mr-3 flex items-center justify-center text-white text-xs">✓</div>
+              <span>Template website sekolah</span>
+            </li>
+            <li class="flex items-center">
+              <div class="w-5 h-5 bg-green-500 rounded-full mr-3 flex items-center justify-center text-white text-xs">✓</div>
+              <span>5 halaman utama</span>
+            </li>
+            <li class="flex items-center">
+              <div class="w-5 h-5 bg-green-500 rounded-full mr-3 flex items-center justify-center text-white text-xs">✓</div>
+              <span>Galeri foto</span>
+            </li>
+            <li class="flex items-center">
+              <div class="w-5 h-5 bg-green-500 rounded-full mr-3 flex items-center justify-center text-white text-xs">✓</div>
+              <span>CMS berita</span>
+            </li>
+          </ul>
+          <a href="#" class="block w-full bg-primary text-white text-center py-3 rounded-lg font-medium hover:bg-secondary transition">
+            Pilih Paket
+          </a>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl border-2 border-secondary shadow-lg relative">
+          <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+            <span class="bg-secondary text-white px-4 py-1 rounded-full text-sm font-medium">POPULER</span>
+          </div>
+          <h4 class="text-xl font-bold text-primary mb-2">Paket Profesional</h4>
+          <div class="text-3xl font-bold mb-4">Rp 6.5jt<span class="text-lg text-gray-500">/ sekali bayar</span></div>
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-center">
+              <div class="w-5 h-5 bg-green-500 rounded-full mr-3 flex items-center justify-center text-white text-xs">✓</div>
+              <span>Custom design sekolah</span>
+            </li>
+            <li class="flex items-center">
+              <div class="w-5 h-5 bg-green-500 rounded-full mr-3 flex items-center justify-center text-white text-xs">✓</div>
+              <span>10+ halaman dinamis</span>
+            </li>
+            <li class="flex items-center">
+              <div class="w-5 h-5 bg-green-500 rounded-full mr-3 flex items-center justify-center text-white text-xs">✓</div>
+              <span>Sistem jadwal pelajaran</span>
+            </li>
+            <li class="flex items-center">
+              <div class="w-5 h-5 bg-green-500 rounded-full mr-3 flex items-center justify-center text-white text-xs">✓</div>
+              <span>Form pendaftaran online</span>
+            </li>
+          </ul>
+          <a href="#" class="block w-full bg-secondary text-white text-center py-3 rounded-lg font-medium hover:bg-blue-500 transition">
+            Pilih Paket
+          </a>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl border border-gray-300">
+          <h4 class="text-xl font-bold text-primary mb-2">Paket Premium</h4>
+          <div class="text-3xl font-bold mb-4">Rp 12jt<span class="text-lg text-gray-500">/ sekali bayar</span></div>
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-center">
+              <div class="w-5 h-5 bg-green-500 rounded-full mr-3 flex items-center justify-center text-white text-xs">✓</div>
+              <span>Full custom design</span>
+            </li>
+            <li class="flex items-center">
+              <div class="w-5 h-5 bg-green-500 rounded-full mr-3 flex items-center justify-center text-white text-xs">✓</div>
+              <span>Sistem e-learning</span>
+            </li>
+            <li class="flex items-center">
+              <div class="w-5 h-5 bg-green-500 rounded-full mr-3 flex items-center justify-center text-white text-xs">✓</div>
+              <span>Portal nilai siswa</span>
+            </li>
+            <li class="flex items-center">
+              <div class="w-5 h-5 bg-green-500 rounded-full mr-3 flex items-center justify-center text-white text-xs">✓</div>
+              <span>Integrasi pembayaran</span>
+            </li>
+          </ul>
+          <a href="#" class="block w-full bg-primary text-white text-center py-3 rounded-lg font-medium hover:bg-secondary transition">
+            Pilih Paket
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tema" class="py-16 md:py-24 bg-gray-100">
+  <div class="container mx-auto px-4">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">
+        Contoh Website Sekolah
+      </h2>
+      <p class="text-lg text-gray-600">
+        Kami telah membuat berbagai website sekolah dengan desain yang sesuai karakteristik masing-masing jenjang
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Card 1: SD -->
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition">
+        <div class="h-48 bg-linear-to-r from-primary/20 to-secondary/20 flex items-center justify-center relative">
+          <div class="text-center">
+            <div class="text-5xl mb-2">👦🏽</div>
+            <h3 class="text-2xl font-bold text-primary">SD Islam Terpadu</h3>
+            <p class="text-gray-500">Jenjang SD/MI</p>
+          </div>
+          <div class="absolute top-4 right-4 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium">
+            Live Demo
+          </div>
+        </div>
+        
+        <div class="p-8">
+          <div class="mb-6">
+            <h4 class="text-lg font-bold text-primary mb-4">Fitur Utama:</h4>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <div class="w-6 h-6 bg-secondary/20 rounded-full mr-3 mt-0.5 flex items-center justify-center">
+                  <div class="w-2 h-2 bg-secondary rounded-full"></div>
+                </div>
+                <span>Warna cerah dan ramah anak</span>
+              </li>
+              <li class="flex items-start">
+                <div class="w-6 h-6 bg-secondary/20 rounded-full mr-3 mt-0.5 flex items-center justify-center">
+                  <div class="w-2 h-2 bg-secondary rounded-full"></div>
+                </div>
+                <span>Galeri kegiatan siswa</span>
+              </li>
+              <li class="flex items-start">
+                <div class="w-6 h-6 bg-secondary/20 rounded-full mr-3 mt-0.5 flex items-center justify-center">
+                  <div class="w-2 h-2 bg-secondary rounded-full"></div>
+                </div>
+                <span>Portal informasi orang tua</span>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="pt-6 border-t border-gray-200">
+            <a href="#" class="block w-full bg-primary text-white text-center py-3 rounded-lg font-medium hover:bg-secondary transition">
+              Lihat Demo Website
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Card 2: SMP -->
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition">
+        <div class="h-48 bg-linear-to-r from-primary/30 to-secondary/30 flex items-center justify-center relative">
+          <div class="text-center">
+            <div class="text-5xl mb-2">🧑🏽‍🎓</div>
+            <h3 class="text-2xl font-bold text-primary">SMP Negeri 1 Kota</h3>
+            <p class="text-gray-500">Jenjang SMP/MTS</p>
+          </div>
+          <div class="absolute top-4 right-4 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium">
+            Live Demo
+          </div>
+        </div>
+        
+        <div class="p-8">
+          <div class="mb-6">
+            <h4 class="text-lg font-bold text-primary mb-4">Fitur Utama:</h4>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <div class="w-6 h-6 bg-secondary/20 rounded-full mr-3 mt-0.5 flex items-center justify-center">
+                  <div class="w-2 h-2 bg-secondary rounded-full"></div>
+                </div>
+                <span>Desain modern untuk remaja</span>
+              </li>
+              <li class="flex items-start">
+                <div class="w-6 h-6 bg-secondary/20 rounded-full mr-3 mt-0.5 flex items-center justify-center">
+                  <div class="w-2 h-2 bg-secondary rounded-full"></div>
+                </div>
+                <span>Sistem jadwal pelajaran</span>
+              </li>
+              <li class="flex items-start">
+                <div class="w-6 h-6 bg-secondary/20 rounded-full mr-3 mt-0.5 flex items-center justify-center">
+                  <div class="w-2 h-2 bg-secondary rounded-full"></div>
+                </div>
+                <span>Ekstrakurikuler online</span>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="pt-6 border-t border-gray-200">
+            <a href="#" class="block w-full bg-primary text-white text-center py-3 rounded-lg font-medium hover:bg-secondary transition">
+              Lihat Demo Website
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Card 3: SMA/SMK -->
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition">
+        <div class="h-48 bg-linear-to-r from-primary/40 to-secondary/40 flex items-center justify-center relative">
+          <div class="text-center">
+            <div class="text-5xl mb-2">👨🏽‍🎓</div>
+            <h3 class="text-2xl font-bold text-primary">SMK Teknologi Informasi</h3>
+            <p class="text-gray-500">Jenjang SMA/SMK/MA</p>
+          </div>
+          <div class="absolute top-4 right-4 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium">
+            Live Demo
+          </div>
+        </div>
+        
+        <div class="p-8">
+          <div class="mb-6">
+            <h4 class="text-lg font-bold text-primary mb-4">Fitur Utama:</h4>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <div class="w-6 h-6 bg-secondary/20 rounded-full mr-3 mt-0.5 flex items-center justify-center">
+                  <div class="w-2 h-2 bg-secondary rounded-full"></div>
+                </div>
+                <span>Desain profesional</span>
+              </li>
+              <li class="flex items-start">
+                <div class="w-6 h-6 bg-secondary/20 rounded-full mr-3 mt-0.5 flex items-center justify-center">
+                  <div class="w-2 h-2 bg-secondary rounded-full"></div>
+                </div>
+                <span>Sistem jurusan & prestasi</span>
+              </li>
+              <li class="flex items-start">
+                <div class="w-6 h-6 bg-secondary/20 rounded-full mr-3 mt-0.5 flex items-center justify-center">
+                  <div class="w-2 h-2 bg-secondary rounded-full"></div>
+                </div>
+                <span>Portal alumni & karir</span>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="pt-6 border-t border-gray-200">
+            <a href="#" class="block w-full bg-primary text-white text-center py-3 rounded-lg font-medium hover:bg-secondary transition">
+              Lihat Demo Website
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="text-center mt-12">
+      <p class="text-gray-600 mb-6">Ingin melihat lebih banyak contoh website sekolah?</p>
+      <a href="#" class="inline-flex items-center text-primary font-medium hover:text-secondary">
+        Lihat Portofolio Lengkap Kami
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="testimonial" class="py-16 md:py-24 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">
+        Testimoni Klien Kami
+      </h2>
+      <p class="text-lg text-gray-600">
+        Sekolah-sekolah yang telah menggunakan jasa pembuatan website dari kami
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Testimonial 1 -->
+      <div class="bg-gray-50 p-8 rounded-xl border border-gray-200">
+        <div class="flex items-center mb-6">
+          <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center">
+            <span class="text-primary font-bold">B</span>
+          </div>
+          <div class="ml-4">
+            <h4 class="font-bold text-primary">Drs. Budi Santoso</h4>
+            <p class="text-gray-500 text-sm">Kepala Sekolah SD Mentari</p>
+          </div>
+        </div>
+        <p class="text-gray-600 italic mb-6">
+          "Website yang dibuat sangat sesuai dengan kebutuhan sekolah kami. Tampilannya profesional dan mudah dikelola oleh staf kami yang tidak ahli IT."
+        </p>
+        <div class="flex text-yellow-400">
+          ★★★★★
+        </div>
+      </div>
+      
+      <!-- Testimonial 2 -->
+      <div class="bg-gray-50 p-8 rounded-xl border border-gray-200">
+        <div class="flex items-center mb-6">
+          <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center">
+            <span class="text-primary font-bold">S</span>
+          </div>
+          <div class="ml-4">
+            <h4 class="font-bold text-primary">Siti Aisyah, M.Pd.</h4>
+            <p class="text-gray-500 text-sm">Wakil Kepala SMP Cendekia</p>
+          </div>
+        </div>
+        <p class="text-gray-600 italic mb-6">
+          "Proses pengerjaan cepat dan responsif. Website yang dihasilkan membantu komunikasi dengan orang tua siswa menjadi lebih efektif."
+        </p>
+        <div class="flex text-yellow-400">
+          ★★★★★
+        </div>
+      </div>
+      
+      <!-- Testimonial 3 -->
+      <div class="bg-gray-50 p-8 rounded-xl border border-gray-200">
+        <div class="flex items-center mb-6">
+          <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center">
+            <span class="text-primary font-bold">R</span>
+          </div>
+          <div class="ml-4">
+            <h4 class="font-bold text-primary">Rudi Hermawan, S.T.</h4>
+            <p class="text-gray-500 text-sm">Kepala SMK Teknik Jaya</p>
+          </div>
+        </div>
+        <p class="text-gray-600 italic mb-6">
+          "Website dengan sistem informasi jurusan yang detail sangat membantu promosi sekolah kami. Banyak calon siswa yang tertarik setelah melihat website."
+        </p>
+        <div class="flex text-yellow-400">
+          ★★★★★
+        </div>
+      </div>
+    </div>
+    
+    <!-- Proses Pengerjaan -->
+    <div class="mt-16 bg-linear-to-r from-primary/5 to-secondary/5 rounded-2xl p-8 md:p-12">
+      <h3 class="text-2xl md:text-3xl font-bold text-primary mb-8 text-center">Proses Pengerjaan Website</h3>
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">1</div>
+          <h4 class="font-bold text-primary mb-2">Konsultasi</h4>
+          <p class="text-gray-600 text-sm">Diskusi kebutuhan dan spesifikasi website sekolah</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">2</div>
+          <h4 class="font-bold text-primary mb-2">Desain</h4>
+          <p class="text-gray-600 text-sm">Pembuatan mockup dan design sesuai identitas sekolah</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">3</div>
+          <h4 class="font-bold text-primary mb-2">Development</h4>
+          <p class="text-gray-600 text-sm">Pemrograman website dengan teknologi terbaru</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">4</div>
+          <h4 class="font-bold text-primary mb-2">Launch</h4>
+          <p class="text-gray-600 text-sm">Peluncuran website dan training admin</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- CTA Section -->
+    <div class="mt-16 bg-linear-to-r from-primary to-secondary rounded-2xl p-8 md:p-12 text-center text-white">
+      <h3 class="text-2xl md:text-3xl font-bold mb-4">Siap Membuat Website Sekolah Anda?</h3>
+      <p class="mb-8 max-w-2xl mx-auto">
+        Konsultasikan kebutuhan website sekolah Anda dengan tim ahli kami. Dapatkan website profesional yang mencerminkan kualitas pendidikan di sekolah Anda.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#" class="bg-white text-primary px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition">
+          Konsultasi Gratis
+        </a>
+        <a href="#" class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-bold hover:bg-white/10 transition">
+          Hubungi Kami
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="bg-primary text-white">
+  <div class="container mx-auto px-4 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <!-- Logo & Description -->
+      <div>
+        <div class="flex items-center mb-6">
+          <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
+            <span class="text-primary font-bold text-xl">WS</span>
+          </div>
+          <span class="ml-3 text-xl font-bold">WebsiteSekolah.id</span>
+        </div>
+        <p class="text-white/80 mb-6">
+          Spesialis pembuatan website sekolah untuk semua jenjang pendidikan. Membantu sekolah hadir secara digital dengan website profesional.
+        </p>
+        <div class="flex space-x-4">
+          <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition">f</a>
+          <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition">t</a>
+          <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition">ig</a>
+          <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition">in</a>
+        </div>
+      </div>
+      
+      <!-- Layanan -->
+      <div>
+        <h3 class="text-lg font-bold mb-6">Layanan Kami</h3>
+        <ul class="space-y-3">
+          <li><a href="#tema" class="text-white/80 hover:text-white transition">Website SD/MI</a></li>
+          <li><a href="#tema" class="text-white/80 hover:text-white transition">Website SMP/MTS</a></li>
+          <li><a href="#tema" class="text-white/80 hover:text-white transition">Website SMA/SMK</a></li>
+          <li><a href="#fitur" class="text-white/80 hover:text-white transition">Paket Website</a></li>
+          <li><a href="#" class="text-white/80 hover:text-white transition">Maintenance</a></li>
+        </ul>
+      </div>
+      
+      <!-- Perusahaan -->
+      <div>
+        <h3 class="text-lg font-bold mb-6">Perusahaan</h3>
+        <ul class="space-y-3">
+          <li><a href="#testimonial" class="text-white/80 hover:text-white transition">Testimoni</a></li>
+          <li><a href="#" class="text-white/80 hover:text-white transition">Portofolio</a></li>
+          <li><a href="#" class="text-white/80 hover:text-white transition">Tentang Kami</a></li>
+          <li><a href="#" class="text-white/80 hover:text-white transition">Blog & Artikel</a></li>
+          <li><a href="#" class="text-white/80 hover:text-white transition">Karir</a></li>
+        </ul>
+      </div>
+      
+      <!-- Kontak -->
+      <div>
+        <h3 class="text-lg font-bold mb-6">Hubungi Kami</h3>
+        <ul class="space-y-3">
+          <li class="flex items-start">
+            <span class="mr-3">📍</span>
+            <span class="text-white/80">Jl. Pendidikan No. 123, Jakarta Pusat</span>
+          </li>
+          <li class="flex items-start">
+            <span class="mr-3">📞</span>
+            <span class="text-white/80">(021) 1234-5678</span>
+          </li>
+          <li class="flex items-start">
+            <span class="mr-3">📱</span>
+            <span class="text-white/80">0812-3456-7890</span>
+          </li>
+          <li class="flex items-start">
+            <span class="mr-3">✉️</span>
+            <span class="text-white/80">hello@websitesekolah.id</span>
+          </li>
+        </ul>
+        
+        <div class="mt-8">
+          <h4 class="font-bold mb-4">Newsletter Pendidikan</h4>
+          <div class="flex">
+            <input 
+              type="email" 
+              placeholder="Email Anda" 
+              class="px-4 py-2 rounded-l-lg flex-grow text-gray-800"
+            />
+            <button class="bg-secondary px-4 py-2 rounded-r-lg font-medium hover:bg-blue-500 transition">
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="border-t border-white/20 mt-12 pt-8 text-center text-white/60 text-sm">
+      <p>&copy; 2026 WebsiteSekolah.id. Hak cipta dilindungi undang-undang.</p>
+      <p class="mt-2">Spesialis pembuatan website untuk institusi pendidikan</p>
+    </div>
+  </div>
+</footer>
+
+    
+</Layout>

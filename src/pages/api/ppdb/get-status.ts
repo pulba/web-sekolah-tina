@@ -7,9 +7,6 @@ export const GET: APIRoute = async ({ request }) => {
     const url = new URL(request.url);
     const id = url.searchParams.get('id');
     
-    console.log('=== STATUS CHECK API ===');
-    console.log('Requested ID:', id);
-    
     if (!id) {
       return new Response(JSON.stringify({
         success: false,
@@ -21,7 +18,6 @@ export const GET: APIRoute = async ({ request }) => {
     }
     
     const result = await getUserById(id);
-    console.log('Database result:', result);
     
     if (result.success && result.data) {
       return new Response(JSON.stringify({

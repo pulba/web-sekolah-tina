@@ -1,5 +1,5 @@
 ---
-// src/pages/admin/login.astro
+// src/pages/dashboard/login.astro
 import Layout from '../../layouts/Layout.astro';
 ---
 
@@ -100,7 +100,7 @@ import Layout from '../../layouts/Layout.astro';
         
         if (result.success) {
           // Redirect ke admin panel
-          window.location.href = '/admin/ppdb';
+          window.location.href = '/dashboard/ppdb';
         } else {
           errorMessage.textContent = result.message || 'Login failed';
           errorMessage.classList.remove('hidden');

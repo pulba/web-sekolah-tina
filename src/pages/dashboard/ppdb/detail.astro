@@ -1,5 +1,5 @@
 ---
-// src/pages/admin/ppdb/detail.astro
+// src/pages/dashboard/ppdb/detail.astro
 import Layout from '../../../layouts/Layout.astro';
 import { getUserById, updateUserStatus } from '../../../lib/db';
 
@@ -23,7 +23,7 @@ if (id) {
   <div class="container mx-auto px-4 py-8">
     <div class="mb-6">
       <a 
-        href="/admin/ppdb" 
+        href="/dashboard/ppdb" 
         class="inline-flex items-center text-blue-600 hover:text-blue-800"
       >
         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -37,7 +37,7 @@ if (id) {
       <div class="bg-red-50 border border-red-200 rounded-lg p-6">
         <h2 class="text-xl font-bold text-red-800 mb-2">Error</h2>
         <p class="text-red-700">{error}</p>
-        <a href="/admin/ppdb" class="mt-4 inline-block text-blue-600 hover:text-blue-800">
+        <a href="/dashboard/ppdb" class="mt-4 inline-block text-blue-600 hover:text-blue-800">
           ← Kembali ke daftar
         </a>
       </div>
@@ -277,7 +277,7 @@ if (id) {
         </svg>
         <h3 class="mt-2 text-sm font-medium text-gray-900">Data tidak ditemukan</h3>
         <p class="mt-1 text-sm text-gray-500">Parameter ID tidak valid atau data sudah dihapus.</p>
-        <a href="/admin/ppdb" class="mt-4 inline-block text-blue-600 hover:text-blue-800">
+        <a href="/dashboard/ppdb" class="mt-4 inline-block text-blue-600 hover:text-blue-800">
           ← Kembali ke daftar
         </a>
       </div>

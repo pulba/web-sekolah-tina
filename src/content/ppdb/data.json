@@ -1,17 +1,17 @@
 {
   "datappdb": {
     "schoolName": "SMA NEGERI 1 INDONESIA",
-    "schoolAlias": "SMAN 1 INDO",
+    "ppdbAlias": "Penerimaan Peserta Didik Baru",
     "logoUrl": "/uploads/logo-sma.png",
     "coverImageUrl": "/uploads/smanegeri1indonesia.png",
-    "primaryColor": "#003F8E",
-    "secondaryColor": "#0076FD",
+    "primaryColor": "#034FF3",
+    "secondaryColor": "#10b981",
     "academicYear": "2026/2027",
     "registrationOpen": true,
-    "registrationPeriod": "Gelombang II",
-    "testDate": "4 April 2026",
-    "testTime": "08:000 wib",
-    "testLocation": "Gedung E",
+    "registrationPeriod": "Gelombang II 1 - 30 Mei 2026",
+    "testDate": "11 November 2025",
+    "testTime": "08:00 - 12:00 WIB",
+    "testLocation": "Aula Utama SMAN Indonesia",
     "requirements": [
       {
         "requirement": "Foto copy Kartu Keluarga"
@@ -32,13 +32,9 @@
         "requirement": "Dokumen dalam map merah (P) / biru (L)"
       }
     ],
-    "contactPhone": "09812345678",
-    "contactEmail": "gmail@gmail.com",
-    "contactAddress": "Jl. Ki Hajar Dewantara No.116",
-    "statementText": "Saya menyatakan kebenaran data diri orang tua dan menyatakan bahwa:",
-    "enableWaliSection": true,
-    "enableReligionField": true,
-    "showPublishedResults": true
+    "contactPhone": "(0271) 123-456",
+    "contactEmail": "ppdb@sekolah.example.com",
+    "contactAddress": "Jl. Pendidikan No. 123, Kota Anda"
   },
   "highlightPamflet": {
     "customImage": "/uploads/1280w-6UHGujUD_QI.webp"

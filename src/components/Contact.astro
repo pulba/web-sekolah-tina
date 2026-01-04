@@ -58,7 +58,7 @@ const getSocialIcon = (key: string): string => {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                           {contact.hours.days.map((day, index) => (
                             <div key={index}>
-                                <p class="text-muted">{day.day}</p>
+                                <p class="">{day.day}</p>
                                 <p class="font-medium">{day.time}</p>
                             </div>
                           ))}
@@ -79,7 +79,7 @@ const getSocialIcon = (key: string): string => {
                 </div>
                 </div>
             </div>
-                <iframe src={contact.mapEmbedUrl} width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" class="w-full h-xl mt-12 rounded-2xl " referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src={contact.mapEmbedUrl} width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" class="w-full h-xl mt-12 rounded-2xl " referrerpolicy="no-referrer-when-downgrade" title="myFrame"></iframe>
         </div>
   </div>
 </section>

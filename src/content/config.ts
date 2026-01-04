@@ -174,7 +174,7 @@ const ppdbSettings = defineCollection({
     datappdb: z.object({
       // Branding
       schoolName: z.string().default('SMP Xaverius 2'),
-      schoolAlias: z.string().optional(),
+      ppdbAlias: z.string().optional(),
       logoUrl: z.string().default('/images/logo-school.png'),
       coverImageUrl: z.string().default('/images/cover-school.jpg'),
       primaryColor: z.string().default('#2563eb'),
@@ -188,7 +188,7 @@ const ppdbSettings = defineCollection({
       // Test Information
       testDate: z.string().default('11 November 2025'),
       testTime: z.string().default('08:00 - 12:00 WIB'),
-      testLocation: z.string().default('Aula Utama SMP Xaverius 2'),
+      testLocation: z.string().default('Aula Utama SMAN Indosia'),
 
       // Requirements (array of objects)
       requirements: z.array(
@@ -209,13 +209,6 @@ const ppdbSettings = defineCollection({
       contactEmail: z.string().default('ppdb@sekolah.example.com'),
       contactAddress: z.string().default('Jl. Pendidikan No. 123, Bandar Lampung'),
 
-      // Statement Text
-      statementText: z.string().default('Saya menyatakan kebenaran data diri orang tua dan menyatakan bahwa:'),
-
-      // Admin Settings
-      enableWaliSection: z.boolean().default(true),
-      enableReligionField: z.boolean().default(true),
-      showPublishedResults: z.boolean().default(true),
     }).default({}),
 
     // Highlight pamflet untuk halaman utama
@@ -250,7 +243,8 @@ const websiteSettingsCollection = defineCollection({
         logo: z.string(),
         logoAlt: z.string().optional(),
         logoWidthDesktop: z.number().optional(),
-        logoWidthMobile: z.number().optional()
+        logoWidthMobile: z.number().optional(),
+        showName: z.boolean().optional().default(true)
       }).optional()
     }),
     seo: z.object({
@@ -286,14 +280,9 @@ const websiteSettingsCollection = defineCollection({
           caption: z.string().optional()
         })
       ).length(3).optional(),
-
-
-
-      // Background gradient (hanya from yang bisa diganti, to tetap transparan)
-      gradient: z.object({
-        from: z.string().optional().default("#3B82F6"), // blue-500 default
-        to: z.string().optional().default("transparent"),
-        direction: z.string().optional().default("to-t")
+      overlay: z.object({
+        color: z.string().optional().default('#000000'),
+        opacity: z.string().optional().default('0.7')
       }).optional(),
 
       // School information

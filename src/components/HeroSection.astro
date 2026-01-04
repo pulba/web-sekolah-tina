@@ -1,4 +1,5 @@
 ---
+//src/components/HeroSection.astro
 import { getCollection } from 'astro:content';
 
 const settingsData = await getCollection('settings');
@@ -11,7 +12,12 @@ const images = slider.images || [
   { url: 'https://images.unsplash.com/photo-1714192833473-3271b3561c95?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
 ];
 
-const gradient = slider.gradient || { from: '#3B82F6', to: 'transparent', direction: 'to-t' };
+// Ambil overlay settings atau gunakan default
+const overlay = slider.overlay || { 
+  color: '#000000', 
+  opacity: '0.7'
+};
+
 const schoolInfo = slider.schoolInfo || { 
   name: 'SMA NEGERI 1', 
   city: 'Semarang', 
@@ -52,9 +58,10 @@ const marqueeDuration = `calc(10s / ${animation.marqueeSpeed || 15} * 15)`;
                 height="1080"
               />
               
+              {/* Overlay Solid Color */}
               <div 
                 class="absolute inset-0 z-10"
-                style={`background: linear-gradient(to top, ${gradient.from}, ${gradient.to})`}
+                style={`background-color: ${overlay.color}; opacity: ${overlay.opacity}`}
                 aria-hidden="true"
               ></div>
               
@@ -64,9 +71,9 @@ const marqueeDuration = `calc(10s / ${animation.marqueeSpeed || 15} * 15)`;
                   class="text-center w-full max-w-4xl px-6"
                   style={textSettings.color ? `color: ${textSettings.color}` : ''}
                 >
-                  <h3 class="text-4xl md:text-5xl font-dafoe mb-6">
+                  <h2 class="text-4xl md:text-5xl font-dafoe mb-6">
                     {schoolInfo.welcomeMessage}
-                  </h3>
+                  </h2>
                   <div class="text-5xl md:text-7xl font-bold uppercase tracking-tight overflow-hidden w-full max-w-lg mx-auto">
                   <marquee scrollamount="7" direction="left">{schoolInfo.name}</marquee>
                   <marquee scrollamount="7" direction="right">{schoolInfo.city}</marquee>
@@ -76,7 +83,7 @@ const marqueeDuration = `calc(10s / ${animation.marqueeSpeed || 15} * 15)`;
                   </p>
                   <div class="flex flex-col sm:flex-row justify-center gap-4 mt-12 w-full max-w-md mx-auto *:rounded-md *:py-2 *:px-6 *:uppercase *:text-surface *:w-full">
                     <a href="/about" aria-label="Detail" class="group bg-primary transition-all ease-linear duration-500 hover:bg-secondary"><button class="text-surface">DETAIL</button></a>
-                    <a href="ppdb/daftar" aria-label="Detail" class="group font-bold tracking-widest border border-border relative before:content-[''] before:absolute before:inset-0 before:w-0 before:h-0 before:rounded-md before:-z-10 before:transition-all before:ease-linear before:duration-500 hover:before:bg-surface hover:before:w-full hover:before:h-full"><button class="text-surface group-hover:text-primary">PPDB</button></a>
+                    <a href="/ppdb" aria-label="Detail" class="group font-bold tracking-widest border border-border relative before:content-[''] before:absolute before:inset-0 before:w-0 before:h-0 before:rounded-md before:-z-10 before:transition-all before:ease-linear before:duration-500 hover:before:bg-surface hover:before:w-full hover:before:h-full"><button class="text-surface group-hover:text-primary">PPDB</button></a>
                   </div>
                 </div>
               </div>

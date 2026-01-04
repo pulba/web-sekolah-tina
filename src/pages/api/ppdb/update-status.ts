@@ -42,7 +42,7 @@ export const GET: APIRoute = async ({ request }) => {
       return new Response(null, {
         status: 302,
         headers: {
-          'Location': '/admin/ppdb',
+          'Location': '/dashboard/ppdb',
           'Refresh': '0'
         }
       });

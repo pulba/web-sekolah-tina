@@ -13,6 +13,7 @@ const schoolInfo = headerData?.schoolInfo || {
   logoAlt: "Logo Sekolah",
   logoWidthDesktop: 48,
   logoWidthMobile: 40,
+  showName: true, // Default true
 };
 
 // Data untuk menu items
@@ -70,7 +71,9 @@ if (menuItems.length === 0) {
       />
 
       <!-- Nama Sekolah Dinamis -->
-      <h1 class="leading-5 uppercase">{schoolInfo.name}</h1>
+      {schoolInfo.showName && (
+        <h1 class="leading-5 uppercase">{schoolInfo.name}</h1>
+      )}
     </a>
 
     <!-- Tombol hamburger mobile -->

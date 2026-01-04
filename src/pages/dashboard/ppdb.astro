@@ -1,5 +1,5 @@
 ---
-// src/pages/admin/ppdb.astro
+// src/pages/dashboard/ppdb.astro
 import Layout from '../../layouts/Layout.astro';
 import { getAllUsers } from '../../lib/db';
 
@@ -252,7 +252,7 @@ const allStats = calculateStats(allUsers);
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <a 
-                      href={`/admin/ppdb/detail?id=${user.id}`}
+                      href={`/dashboard/ppdb/detail?id=${user.id}`}
                       class="text-secondary hover:text-blue-900 mr-3"
                     >
                       Detail
@@ -363,7 +363,7 @@ const allStats = calculateStats(allUsers);
         if (confirm('Apakah Anda yakin ingin logout?')) {
           try {
             await fetch('/api/admin/logout', { method: 'POST' });
-            window.location.href = '/admin/login';
+            window.location.href = '/dashboard/login';
           } catch (error) {
             alert('Gagal logout. Silakan coba lagi.');
           }

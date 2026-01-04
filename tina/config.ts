@@ -12,15 +12,7 @@ const socialIconOptions = Object.entries(SOCIAL_ICON_REGISTRY ?? {}).map(
 export default defineConfig({
   clientId: "ed5e3105-0099-4d6e-856e-d59cea0acf03",
   token: "19c4ba9bf4f5d9abc37e57bd706cca4e15e39f17",
-  branch: process.env.GITHUB_BRANCH || 'main',
-  // database: {
-  //   provider: new GitHubProvider({
-  //     branch: process.env.GITHUB_BRANCH || 'main',
-  //     owner: process.env.GITHUB_OWNER!,
-  //     repo: process.env.GITHUB_REPO!,
-  //     token: process.env.GITHUB_PERSONAL_ACCESS_TOKEN!,
-  //   }),
-  // },
+  branch: 'main',
 
   local: {
     enabled: false,
@@ -395,8 +387,6 @@ export default defineConfig({
           },
         ]
       },
-
-
       //   staff
       {
         label: 'Staff Sekolah',
@@ -699,7 +689,7 @@ export default defineConfig({
             label: "Data PPDB",
             fields: [
               { type: "string", name: "schoolName", label: "Nama Sekolah", required: true },
-              { type: "string", name: "schoolAlias", label: "Nama Singkat (Opsional)" },
+              { type: "string", name: "ppdbAlias", label: "Nama Pendaftaran" },
               { type: "image", name: "logoUrl", label: "Logo Sekolah" },
               { type: "image", name: "coverImageUrl", label: "Cover Image" },
               {
@@ -737,15 +727,6 @@ export default defineConfig({
               { type: "string", name: "contactPhone", label: "Telepon Kontak" },
               { type: "string", name: "contactEmail", label: "Email Kontak" },
               { type: "string", name: "contactAddress", label: "Alamat Sekolah" },
-              {
-                type: "string",
-                name: "statementText",
-                label: "Teks Pernyataan",
-                ui: { component: "textarea" }
-              },
-              { type: "boolean", name: "enableWaliSection", label: "Tampilkan Section Wali?" },
-              { type: "boolean", name: "enableReligionField", label: "Tampilkan Field Agama?" },
-              { type: "boolean", name: "showPublishedResults", label: "Tampilkan Hasil Publik?" }
             ]
           },
           {
@@ -760,8 +741,6 @@ export default defineConfig({
           }
         ]
       },
-
-
       // Authors
       {
         name: "authors",
@@ -1185,6 +1164,14 @@ export default defineConfig({
                     name: 'logoWidthMobile',
                     defaultValue: 40,
                   },
+                  // TAMBAHKAN FIELD INI
+                  {
+                    type: 'boolean',
+                    label: 'Tampilkan Nama Sekolah',
+                    name: 'showName',
+                    description: 'Centang untuk menampilkan nama sekolah di sebelah logo',
+                    defaultValue: true,
+                  },
                 ],
               },
             ],
@@ -1364,29 +1351,36 @@ export default defineConfig({
                   },
                 ],
               },
-              // 3. GRADIENT BACKGROUND
+              // 3. Background Overlay
               {
                 type: 'object',
-                label: 'Background Gradient',
-                name: 'gradient',
+                label: 'Background Overlay',
+                name: 'overlay',
                 fields: [
                   {
                     type: 'string',
-                    label: 'Gradient Color Start (FROM)',
-                    name: 'from',
+                    label: 'Overlay Color',
+                    name: 'color',
                     ui: { component: 'color' },
-                    description: 'Hanya bagian FROM yang bisa diganti, TO tetap transparan',
+                    description: 'Warna overlay (format hex, rgb, atau rgba)',
+                    required: false,
                   },
                   {
                     type: 'string',
-                    label: 'Gradient Direction',
-                    name: 'direction',
+                    label: 'Opacity',
+                    name: 'opacity',
                     options: [
-                      { label: 'To Top', value: 'to-t' },
-                      { label: 'To Bottom', value: 'to-b' },
-                      { label: 'To Left', value: 'to-l' },
-                      { label: 'To Right', value: 'to-r' },
+                      { label: '10%', value: '0.1' },
+                      { label: '20%', value: '0.2' },
+                      { label: '30%', value: '0.3' },
+                      { label: '40%', value: '0.4' },
+                      { label: '50%', value: '0.5' },
+                      { label: '60%', value: '0.6' },
+                      { label: '70%', value: '0.7' },
+                      { label: '80%', value: '0.8' },
+                      { label: '90%', value: '0.9' },
                     ],
+                    description: 'Tingkat transparansi overlay',
                   },
                 ],
               },
